@@ -1,0 +1,9 @@
+[submodule "sdc.broadband.acs"]
+	path = sdc.broadband.acs
+	url = git@github.com:uva-bi-sdad/sdc.broadband.acs.git
+[submodule "sdc.broadband.broadbandnow"]
+	path = sdc.broadband.broadbandnow
+	url = git@github.com:uva-bi-sdad/sdc.broadband.broadbandnow.git
+[submodule "sdc.broadband.ookla"]
+	path = sdc.broadband.ookla
+	url = git@github.com:uva-bi-sdad/sdc.broadband.ookla.git
