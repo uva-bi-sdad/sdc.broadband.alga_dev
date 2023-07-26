@@ -138,6 +138,7 @@ if __name__ == "__main__":
 
     def process_acs(df):
         df["year"] = 2021
+        df = df[(df["B19013_001E"] >= 0) & (df["B19013_001E"].notnull())]
         return df
 
     merge_datasets(
