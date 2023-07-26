@@ -5,7 +5,7 @@ import requests
 from tqdm import tqdm
 
 
-MERGED_GEOID_COL_NAME = "geiod"
+MERGED_GEOID_COL_NAME = "geoid"
 MERGED_YEAR_COL_NAME = "year"
 MERGED_VAL_COL_NAME = "value"
 
@@ -51,7 +51,7 @@ def merge_data(
     mdf[MERGED_YEAR_COL_NAME] = mdf[[year_col_a + "_x", year_col_b + "_y"]].max(axis=1)
 
     # Convert the data to a standard format
-    # mdf = mdf.reset_index(standard_cols)
+    mdf = mdf.reindex(standard_cols, axis="columns")
     mdf["measure"] = measure_name
     return mdf
 
@@ -110,8 +110,6 @@ def merge_datasets(
             year_col_b,
         )
 
-        # print(mdf)
-        input("-" * 80)
         export_filepath = os.path.join(export_dir, file)
 
         if save:
@@ -155,7 +153,7 @@ if __name__ == "__main__":
         perc,
         "year",
         "year",
-        "../data/",
+        "../data/distribution/",
         glob="*.csv.xz",
         save=True,
     )
