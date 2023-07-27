@@ -134,6 +134,7 @@ if __name__ == "__main__":
         min_df = min_up_100.groupby(["GEOID20"])["price"].min()
         min_df = min_df.reset_index()
         min_df["year"] = 2023
+        min_df["price"] *= 12  # change per month price to per year price to match acs
         return min_df
 
     def process_acs(df):
