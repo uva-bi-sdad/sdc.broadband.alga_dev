@@ -19,19 +19,8 @@ df
 6   010070100062  perc_income_min_price_100  NaN  0.044219  2023
 7   010070100071  perc_income_min_price_100  NaN  0.053439  2023
 8   010070100072  perc_income_min_price_100  NaN  0.050261  2023
-<<<<<<< HEAD
 9   010070100082  perc_income_min_price_100  NaN  0.040789  2023
 10  010070100093  perc_income_min_price_100  NaN  0.089700  2023
 11  010070100102  perc_income_min_price_100  NaN  0.047369  2023
 12  010070100111  perc_income_min_price_100  NaN  0.031500  2023
-=======
-9   010070100081  perc_income_min_price_100  NaN -0.000005  2023
-10  010070100082  perc_income_min_price_100  NaN  0.040789  2023
-11  010070100091  perc_income_min_price_100  NaN -0.000005  2023
-12  010070100092  perc_income_min_price_100  NaN -0.000005  2023
-13  010070100093  perc_income_min_price_100  NaN  0.089700  2023
-14  010070100101  perc_income_min_price_100  NaN -0.000005  2023
-15  010070100102  perc_income_min_price_100  NaN  0.047369  2023
-16  010070100111  perc_income_min_price_100  NaN  0.031500  2023
->>>>>>> d25033feca93905cc75fdf88483e301a7eb29ece
 ```
