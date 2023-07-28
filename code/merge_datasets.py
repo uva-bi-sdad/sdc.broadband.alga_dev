@@ -113,7 +113,7 @@ def merge_datasets(
         export_filepath = os.path.join(export_dir, file)
 
         if save:
-            os.system("mkdir -p %s" % export_dir)
+            os.system('mkdir -p "%s"' % export_dir)
             pbar.set_description("Saving file to: %s" % export_filepath)
             mdf.to_csv(export_filepath, index=False)
         else:
