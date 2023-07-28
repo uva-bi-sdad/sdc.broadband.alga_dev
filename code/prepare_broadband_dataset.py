@@ -152,14 +152,17 @@ def avg_down_using_devices(export_dir):
     def process_ookla(df, measure_name, standard_cols):
         df = df[(df["avg_d_mbps"] >= 0) & (df["avg_d_mbps"].notnull())].copy()
         df = df.rename(columns={"GEOID20": "geoid", "avg_d_mbps": "value"})
+        df = df.groupby(["geoid", "year"])["value"].agg("mean").reset_index()
+        df["moe"] = None
         df = df.reindex(standard_cols, axis="columns")
         df["measure"] = measure_name
         return df
 
-    pbar = tqdm(sorted(pathlib.Path(ookla_data_dir).glob("*.csv.xz")))
+    files = sorted(pathlib.Path(ookla_data_dir).glob("*.csv.xz"))
+    files = [f for f in files if f.name[:5] in COUNTIES_TO_FOCUS]
+
+    pbar = tqdm(files)
     for file in pbar:
-        if not file.name[:5] in COUNTIES_TO_FOCUS:
-            continue
         df = process_ookla(
             pd.read_csv(file, dtype={"GEOID20": object}),
             "avg_down_using_devices",
@@ -171,14 +174,74 @@ def avg_down_using_devices(export_dir):
         df.to_csv(export_filepath, index=False)
 
 
+def avg_up_using_devices(export_dir):
+    ookla_data_dir = "../sdc.broadband.ookla/data/distribution"
+    assert os.path.isdir(ookla_data_dir)
+    standard_cols = requests.get(STANDARD_DATA_COLS_URL).json()
+
+    def process_ookla(df, measure_name, standard_cols):
+        df = df[(df["avg_u_mbps"] >= 0) & (df["avg_u_mbps"].notnull())].copy()
+        df = df.rename(columns={"GEOID20": "geoid", "avg_u_mbps": "value"})
+        df = df.groupby(["geoid", "year"])["value"].agg("mean").reset_index()
+        df["moe"] = None
+        df = df.reindex(standard_cols, axis="columns")
+        df["measure"] = measure_name
+        return df
+
+    files = sorted(pathlib.Path(ookla_data_dir).glob("*.csv.xz"))
+    files = [f for f in files if f.name[:5] in COUNTIES_TO_FOCUS]
+    pbar = tqdm(files)
+    for file in pbar:
+        df = process_ookla(
+            pd.read_csv(file, dtype={"GEOID20": object}),
+            "avg_up_using_devices",  # ! The function name is also the measure name
+            standard_cols,
+        )
+        export_filepath = os.path.join(export_dir, file.name)
+        pbar.set_description("Saving file to: %s" % export_filepath)
+        assert not any(df["geoid"].isnull())
+        df.to_csv(export_filepath, index=False)
+
+
+def devices(export_dir):
+    ookla_data_dir = "../sdc.broadband.ookla/data/distribution"
+    assert os.path.isdir(ookla_data_dir)
+    standard_cols = requests.get(STANDARD_DATA_COLS_URL).json()
+
+    def process_ookla(df, measure_name, standard_cols):
+        df = df[(df["devices"] >= 0) & (df["devices"].notnull())].copy()
+        df = df.rename(columns={"GEOID20": "geoid", "devices": "value"})
+        df = df.groupby(["geoid", "year"])["value"].agg("mean").reset_index()
+        df["moe"] = None
+        df = df.reindex(standard_cols, axis="columns")
+        df["measure"] = measure_name
+        return df
+
+    files = sorted(pathlib.Path(ookla_data_dir).glob("*.csv.xz"))
+    files = [f for f in files if f.name[:5] in COUNTIES_TO_FOCUS]
+    pbar = tqdm(files)
+    for file in pbar:
+        df = process_ookla(
+            pd.read_csv(file, dtype={"GEOID20": object}),
+            "devices",  # ! The function name is also the measure name
+            standard_cols,
+        )
+        export_filepath = os.path.join(export_dir, file.name)
+        pbar.set_description("Saving file to: %s" % export_filepath)
+        assert not any(df["geoid"].isnull())
+        df.to_csv(export_filepath, index=False)
+
+
 if __name__ == "__main__":
-    perc_income_min_price_100(
-        "../data/distribution/Affordability/Percentage of income for fast internet/"
-    )
-    perc_income_on_internet(
-        "../data/distribution/Affordability/Percentage of income for good internet/"
-    )
-    perc_income_avg_nat_package(
-        "../data/distribution/Affordability/Percentage of income for internet (average)/"
-    )
+    # perc_income_min_price_100(
+    #     "../data/distribution/Affordability/Percentage of income for fast internet/"
+    # )
+    # perc_income_on_internet(
+    #     "../data/distribution/Affordability/Percentage of income for good internet/"
+    # )
+    # perc_income_avg_nat_package(
+    #     "../data/distribution/Affordability/Percentage of income for internet (average)/"
+    # )
     avg_down_using_devices("../data/distribution/Accessibility/Average Download Speed/")
+    avg_up_using_devices("../data/distribution/Accessibility/Average Upload Speed/")
+    devices("../data/distribution/Accessibility/Number of Devices/")
