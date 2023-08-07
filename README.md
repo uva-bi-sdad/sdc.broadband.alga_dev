@@ -3,9 +3,20 @@ Example repository of putting smaller sample data repositories together
 
 ```mermaid
 graph LR;
+           year=2022-->Ookla;
+           Ookla-->avg_d_mbps;
+           Ookla-->avg_u_mbps;
+           Ookla-->tests;
+           Ookla-->devices;
+           Ookla-->q;
+           Ookla-->year;
+           q --> dev((mean));
+           year --> dev((mean));
+           devices --> dev((mean));
+           dev((mean)) -- devices ---> markdown10;
            TBA -- avg_down_using_devices --> markdown12["Average download speed weighted by number of devices"];
            TBA -- avg_up_using_devices --> markdown11["Average upload speed weighted by number of devices"];
-           TBA -- devices --> markdown10["The number of unique devices accessing Ookla Internet speed tests"];
+           markdown10["The number of unique devices accessing Ookla Internet speed tests"];
            TBA -- perc_w_int_100_20_using_devices --> markdown9["Percent of the internet-connected population with a fast internet speed </br> (above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly)"];
            TBA -- perc_total_100_20_using_devices --> markdown8["Percent of the total population with a fast internet speed </br>(above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly)"];
            TBA -- perc_w_int_25_3_using_devices --> markdown7["Percent of the internet-connected population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
