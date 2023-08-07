@@ -9,6 +9,7 @@ graph LR;
            B19013_001-->avg_nat((mean*100));
 
 %% ACS things:
+           ACS[<a href='https://www.census.gov/programs-surveys/acs'>ACS</a>];
            year=2021-->ACS;
            ACS--B19013_001-->B19013_001["MEDIAN HOUSEHOLD INCOME IN THE PAST 12 MONTHS <br/>(IN 2021 INFLATION-ADJUSTED DOLLARS)"];
            ACS--B28002_001-->B28002_001["PRESENCE AND TYPES OF INTERNET <br/> SUBSCRIPTIONS IN HOUSEHOLD"];
@@ -18,6 +19,7 @@ graph LR;
            ACS--B28002_013-->B28002_013["Estimate!!Total:!!No Internet access"];
 
 %% Broadbandnow things:
+           Broadbandnow[<a href='https://broadbandnow.com/'>Broadbandnow</a>];
            query_year=2023-->Broadbandnow;
            Broadbandnow-->speed;
            Broadbandnow-->down_up;
@@ -27,6 +29,7 @@ graph LR;
            Broadbandnow-->address;
 
 %% Ookla things:
+           Ookla[<a href='https://www.ookla.com/ookla-for-good/open-data'>Ookla</a>];
            year=2022-->Ookla;
            Ookla-->avg_d_mbps;
            Ookla-->avg_u_mbps;
