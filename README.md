@@ -3,6 +3,25 @@ Example repository of putting smaller sample data repositories together
 
 ```mermaid
 graph LR;
+%% ACS things:
+           year=2021-->ACS;
+           ACS--B19013_001-->B19013_001["MEDIAN HOUSEHOLD INCOME IN THE PAST 12 MONTHS <br/>(IN 2021 INFLATION-ADJUSTED DOLLARS)"];
+           ACS--B28002_001-->B28002_001["PRESENCE AND TYPES OF INTERNET <br/> SUBSCRIPTIONS IN HOUSEHOLD"];
+           ACS--B28001_002-->B28001_002["Estimate!!Total:!!<br/>Has one or more types of computing devices:"];
+           ACS--B28002_004-->B28002_004["Estimate!!Total:!!<br/>With an Internet subscription!!Broadband of any type"];
+           ACS--B28002_007-->B28002_007["Estimate!!Total:!!With an Internet subscription!!</br>Broadband such as cable, fiber optic or DSL"];
+           ACS--B28002_013-->B28002_013["Estimate!!Total:!!No Internet access"];
+
+%% Broadbandnow things:
+           query_year=2023-->Broadbandnow;
+           Broadbandnow-->speed;
+           Broadbandnow-->down_up;
+           Broadbandnow-->price;
+           Broadbandnow-->name;
+           Broadbandnow-->type;
+           Broadbandnow-->address;
+
+%% Ookla things:
            year=2022-->Ookla;
            Ookla-->avg_d_mbps;
            Ookla-->avg_u_mbps;
@@ -10,20 +29,34 @@ graph LR;
            Ookla-->devices;
            Ookla-->q;
            Ookla-->year;
+
+%% Calculations
            q --> dev((mean));
            year --> dev((mean));
            devices --> dev((mean));
-           dev((mean)) -- devices ---> markdown10;
-           TBA -- avg_down_using_devices --> markdown12["Average download speed weighted by number of devices"];
-           TBA -- avg_up_using_devices --> markdown11["Average upload speed weighted by number of devices"];
+           q --> download((mean));
+           year --> download((mean));
+           avg_d_mbps --> download((mean));
+           q --> upload((mean));
+           year --> upload((mean));
+           avg_u_mbps --> upload((mean));
+           download((mean)) -- avg_down_using_devices --> markdown12["Average download speed weighted by number of devices"];
+           upload((mean)) -- avg_up_using_devices --> markdown11["Average upload speed weighted by number of devices"];
+           dev((mean)) -- devices --> markdown10;
            markdown10["The number of unique devices accessing Ookla Internet speed tests"];
+
+           price --> perc_income_min_price_100((mean))
+           B19013_001 --> perc_income_min_price_100((mean))
+           perc_income_min_price_100((mean)) -- perc_income_min_price_100 -->markdown3["The minimum price for fast internet (100 MB/s upload)</br> as a percentage of median household income"];
+
+%% Not yet complete
            TBA -- perc_w_int_100_20_using_devices --> markdown9["Percent of the internet-connected population with a fast internet speed </br> (above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly)"];
            TBA -- perc_total_100_20_using_devices --> markdown8["Percent of the total population with a fast internet speed </br>(above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly)"];
            TBA -- perc_w_int_25_3_using_devices --> markdown7["Percent of the internet-connected population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
            TBA -- perc_total_25_3_using_devices --> markdown6["Percent of the total population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
            TBA -- perc_hh_without_compdev -->markdown5["Percentage of the households self-reported</br> to not have a computer or device at home"];
            TBA -- perc_hh_with_broadband --> markdown4["Percentage of households self-reported to have a broadband internet connection. </br> Broadband internet is defined as any type of internet other than a dial-up"];
-           TBA -- perc_income_min_price_100 -->markdown3["The minimum price for fast internet (100 MB/s upload)</br> as a percentage of median household income"];
+
            TBA -- perc_income_min_price_25 -->markdown2["The minimum price for good internet (25 MB/s upload)</br> as a percentage of median household income"];
            TBA -- perc_income_avg_nat_package -->markdown1["The national average price for internet ($64)</br> as a percentage of median household income"];
 ```
