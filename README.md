@@ -31,14 +31,14 @@ graph LR;
            Ookla-->year;
 
 %% Calculations
-           q --> dev((mean));
-           year --> dev((mean));
+           q -.-> dev((mean));
+           year -.-> dev((mean));
            devices --> dev((mean));
-           q --> download((mean));
-           year --> download((mean));
+           q -.-> download((mean));
+           year -.-> download((mean));
            avg_d_mbps --> download((mean));
-           q --> upload((mean));
-           year --> upload((mean));
+           q -.-> upload((mean));
+           year -.-> upload((mean));
            avg_u_mbps --> upload((mean));
            download((mean)) -- avg_down_using_devices --> markdown12["Average download speed weighted by number of devices"];
            upload((mean)) -- avg_up_using_devices --> markdown11["Average upload speed weighted by number of devices"];
@@ -47,7 +47,10 @@ graph LR;
 
            price --> perc_income_min_price_100((mean))
            B19013_001 --> perc_income_min_price_100((mean))
-           perc_income_min_price_100((mean)) -- perc_income_min_price_100 -->markdown3["The minimum price for fast internet (100 MB/s upload)</br> as a percentage of median household income"];
+           speed -.-> perc_income_min_price_100((mean))
+           down_up -.-> perc_income_min_price_100((mean))
+
+           perc_income_min_price_100((mean)) -- perc_income_min_price_100 --> markdown3["The minimum price for fast internet (100 MB/s upload)</br> as a percentage of median household income"];
 
 %% Not yet complete
            TBA -- perc_w_int_100_20_using_devices --> markdown9["Percent of the internet-connected population with a fast internet speed </br> (above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly)"];
