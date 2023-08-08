@@ -128,7 +128,7 @@ end
 
 1. **avg_up_using_devices**
 ```math
-\textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(u_{(g, q)} * n_{(g,q)}})}{\sum_{q}\sum_{g}{n_{(g,q)}}}
+\textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(u_{(g, q)} n_{(g,q)}})}{\sum_{q}\sum_{g}{n_{(g,q)}}}
 ```
 where $u$ is the average upload speed for the geography $g$, quarter $q$, and $n$ is the number of devices.
 
@@ -140,7 +140,7 @@ where $n$ is the number of devices, $g$ the geography, and $q$ the quarter.
 
 3. **avg_down_using_devices**
 ```math
-\textbf{d} = \frac{\text{Total download speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(d_{(g, q)} * n_{(g,q)}})}{\sum_{q}\sum_{g}{n_{(g,q)}}}
+\textbf{d} = \frac{\text{Total download speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(d_{(g, q)} n_{(g,q)}})}{\sum_{q}\sum_{g}{n_{(g,q)}}}
 ```
 where $d$ is the average download speed for the geography $g$, quarter $q$, and $n$ is the number of devices.
 
