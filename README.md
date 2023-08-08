@@ -53,7 +53,7 @@ end
            year -.-> download;
            devices -.-> download;
            avg_d_mbps --> download;
-           q -.-> upload(("<a href='#avg_up_using_devices'> avg_up_using_devices </a>"));
+           q -.-> upload(("<a href='#user-content-avg_up_using_devices'> avg_up_using_devices </a>"));
            year -.-> upload;
            devices -.-> upload;
            %% step3_generalized.Rmd:  sum(upload_devices * devices, na.rm = T) / sum(devices, na.rm = T), (Why do we need this? Isn't it multiplying the sum of upload speed by 1
