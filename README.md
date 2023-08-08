@@ -5,8 +5,8 @@ Example repository of putting smaller sample data repositories together
 graph LR;
 %% Median Price for Internet in 2022
            med_int_price[<a href='https://advocacy.consumerreports.org/wp-content/uploads/2022/11/FINAL.report-broadband.november-17-2022-2.pdf'>Median Internet Price 2022</a>];
-           med_int_price--75$-->avg_nat((mean*100));
-           B19013_001-->avg_nat((mean*100));
+           med_int_price--75$-->avg_nat((75/B19013_001</br>*100));
+           B19013_001-->avg_nat;
 
 %% ACS things:
 subgraph ACS_G["sdc.broadband.acs"]
@@ -14,11 +14,11 @@ subgraph ACS_G["sdc.broadband.acs"]
            year=2021-->ACS;
            ACS--B28001_001-->B28001_001["Estimate!!Total: TYPES OF COMPUTERS IN HOUSEHOLD"];
            ACS--B28001_002-->B28001_002["Estimate!!Total:!!<br/>Has one or more types of computing devices:"];
-           ACS--B28002_001-->B28002_001["PRESENCE AND TYPES OF INTERNET <br/> SUBSCRIPTIONS IN HOUSEHOLD"];
+           ACS--B28002_001-->B28002_001["Estimate!!Total: PRESENCE AND TYPES OF INTERNET <br/> SUBSCRIPTIONS IN HOUSEHOLD"];
            ACS--B28002_004-->B28002_004["Estimate!!Total:!!<br/>With an Internet subscription!!Broadband of any type"];
            ACS--B28002_007-->B28002_007["Estimate!!Total:!!With an Internet subscription!!</br>Broadband such as cable, fiber optic or DSL"];
            ACS--B28002_013-->B28002_013["Estimate!!Total:!!No Internet access"];
-           ACS--B19013_001-->B19013_001["MEDIAN HOUSEHOLD INCOME IN THE PAST 12 MONTHS <br/>(IN 2021 INFLATION-ADJUSTED DOLLARS)"];
+           ACS--B19013_001-->B19013_001["Estimate!!Total: MEDIAN HOUSEHOLD INCOME IN THE PAST 12 MONTHS <br/>(IN 2021 INFLATION-ADJUSTED DOLLARS)"];
 end
 
 %% Broadbandnow things:
@@ -46,46 +46,45 @@ subgraph OOKLA_G["sdc.broadband.ookla"]
 end
 
 %% Calculations
-           q -.-> dev((mean));
-           year -.-> dev((mean));
-           devices --> dev((mean));
-           q -.-> download((mean));
-           year -.-> download((mean));
-           devices -.-> download((mean));
-           avg_d_mbps --> download((mean));
-           q -.-> upload((mean));
-           year -.-> upload((mean));
-           devices -.-> upload((mean));
+           q -.-> dev(("sum(devices)/4q"));
+           year -.-> dev;
+           devices --> dev;
+           q -.-> download(("sum(avg_d_mbps)/4q * </br>device_in_geo_level/ device_in_county"));
+           year -.-> download;
+           devices -.-> download;
+           avg_d_mbps --> download;
+           q -.-> upload(("sum(avg_u_mbps)/4q * </br>device_in_geo_level/ device_in_county"));
+           year -.-> upload;
+           devices -.-> upload;
            %% step3_generalized.Rmd:  sum(upload_devices * devices, na.rm = T) / sum(devices, na.rm = T), (Why do we need this? Isn't it multiplying the sum of upload speed by 1
            %% upon further inspection: above_20_up<-- pnorm(20, md_merged_data_up_devices$upload_devices, md_merged_data_up_devices$sd_county_up_devices, lower.tail = F) * 100 # a density distribution where mean is the upload devices, and standard deviation is equal to the sd_county_up_devices
            %% perc_w_int_above_20_up_using_devices <-- above_20_up
-           avg_u_mbps --> upload((mean));
-           download((mean)) -- avg_down_using_devices --> avg_down_using_devices_node["Average download speed weighted by number of devices"];
-           upload((mean)) -- avg_up_using_devices --> avg_up_using_devices_node["Average upload speed weighted by number of devices"];
-           dev((mean)) -- devices --> devices_node["The number of unique devices accessing Ookla Internet speed tests"];
+           avg_u_mbps --> upload;
+           download -- avg_down_using_devices --> avg_down_using_devices_node["Average download speed weighted by number of devices"];
+           upload -- avg_up_using_devices --> avg_up_using_devices_node["Average upload speed weighted by number of devices"];
+           dev -- devices --> devices_node["The number of unique devices accessing Ookla Internet speed tests"];
 
-           price --> perc_income_min_price_100((mean*100))
-           B19013_001 --> perc_income_min_price_100((mean*100))
-           speed -.-> perc_income_min_price_100((mean*100))
-           down_up -.-> perc_income_min_price_100((mean*100))
+           price --> perc_income_min_price_100(("min(price| upload &</br> speed >= 100 Mbps)/B19013_001"))
+           B19013_001 --> perc_income_min_price_100;
+           speed -.-> perc_income_min_price_100;
+           down_up -.-> perc_income_min_price_100;
 
-           perc_income_min_price_100((mean*100)) -- perc_income_min_price_100 --> perc_income_min_price_100_node["The minimum price for fast internet (100 MB/s upload)</br> as a percentage of median household income"];
-           avg_nat((mean*100)) -- perc_income_avg_nat_package -->perc_income_avg_nat_package_node["The national average price for internet ($75)</br> as a percentage of median household income"];
-           B28001_001 --> diff((difference));
-           B28001_002 --> diff((difference));
-           diff((difference)) -- households without computers --> div((division*100));
-           B28001_001 --> div((division*100));
-           div((division*100)) -- perc_hh_without_compdev -->perc_hh_without_compdev_node["Percentage of the households self-reported</br> to not have a computer or device at home"];
-           B28002_004 --> perc_hh_with_broadband_c((division*100));
-           B28002_001 --> perc_hh_with_broadband_c((division*100));
-           perc_hh_with_broadband_c((division*100))-- perc_hh_with_broadband --> perc_hh_with_broadband_node["Percentage of households self-reported to have a broadband internet connection. </br> Broadband internet is defined as any type of internet other than a dial-up"];
+           perc_income_min_price_100 -- perc_income_min_price_100 --> perc_income_min_price_100_node["The minimum price for fast internet (100 MB/s upload)</br> as a percentage of median household income"];
+           avg_nat -- perc_income_avg_nat_package -->perc_income_avg_nat_package_node["The national average price for internet ($75)</br> as a percentage of median household income"];
+           B28001_001 --> perc_hh_without_compdev_c;
+           B28001_002 --> perc_hh_without_compdev_c;
+           perc_hh_without_compdev_c(("(B28001_001-B28001_002)</br>/B28001_001*100"));
+           perc_hh_without_compdev_c -- perc_hh_without_compdev -->perc_hh_without_compdev_node["Percentage of the households self-reported</br> to not have a computer or device at home"];
+           B28002_004 --> perc_hh_with_broadband_c((B28002_004/B28002_001*100));
+           B28002_001 --> perc_hh_with_broadband_c;
+           perc_hh_with_broadband_c -- perc_hh_with_broadband --> perc_hh_with_broadband_node["Percentage of households self-reported to have a broadband internet connection. </br> Broadband internet is defined as any type of internet other than a dial-up"];
 
-           B19013_001 --> perc_income_min_price_25_c((division*100));
-           price --> perc_income_min_price_25_c((division*100));
-           B19013_001 --> perc_income_min_price_25_c((division*100));
-           speed -.-> perc_income_min_price_25_c((division*100));
-           down_up -.-> perc_income_min_price_25_c((division*100));
-           perc_income_min_price_25_c((division*100)) -- perc_income_min_price_25 -->perc_income_min_price_25_node["The minimum price for good internet (25 MB/s upload)</br> as a percentage of median household income"];
+           B19013_001 --> perc_income_min_price_25_c(("min(price| upload &</br> speed >= 25 Mbps)/B19013_001"));
+           price --> perc_income_min_price_25_c;
+           B19013_001 --> perc_income_min_price_25_c;
+           speed -.-> perc_income_min_price_25_c;
+           down_up -.-> perc_income_min_price_25_c;
+           perc_income_min_price_25_c -- perc_income_min_price_25 -->perc_income_min_price_25_node["The minimum price for good internet (25 MB/s upload)</br> as a percentage of median household income"];
 
            %% On calculating perc_total_25_3_using_devices
            %%           with_internet = B28002_001 - B28002_013
