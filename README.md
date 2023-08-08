@@ -53,7 +53,7 @@ end
            year -.-> download;
            devices -.-> download;
            avg_d_mbps --> download;
-           q -.-> upload(("sum(avg_u_mbps)/4q * </br>device_in_geo_level/ device_in_county"));
+           q -.-> upload(("<a href='#avg_up_using_devices'> avg_up_using_devices </a>"));
            year -.-> upload;
            devices -.-> upload;
            %% step3_generalized.Rmd:  sum(upload_devices * devices, na.rm = T) / sum(devices, na.rm = T), (Why do we need this? Isn't it multiplying the sum of upload speed by 1
@@ -122,6 +122,12 @@ end
            TBA -- perc_total_100_20_using_devices --> perc_total_100_20_using_devices_node["Percent of the total population with a fast internet speed </br>(above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly)"];
            TBA -- perc_w_int_25_3_using_devices --> perc_w_int_25_3_using_devices_node["Percent of the internet-connected population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
            TBA -- perc_total_25_3_using_devices --> perc_total_25_3_using_devices_node["Percent of the total population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
+```
+
+## Formulas for calculating the measures
+### avg_up_using_devices
+```math
+\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
 ```
 
 ## Quickstart
