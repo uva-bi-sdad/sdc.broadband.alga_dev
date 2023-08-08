@@ -8,7 +8,7 @@ graph LR;
            med_int_price--75$-->avg_nat((75/B19013_001</br>*100));
            B19013_001-->avg_nat;
 
-%% ACS things:
+%% ACS things: 
 subgraph ACS_G["sdc.broadband.acs"]
            ACS[<a href='https://www.census.gov/programs-surveys/acs'>ACS</a>];
            year=2021-->ACS;
@@ -53,7 +53,7 @@ end
            year -.-> download;
            devices -.-> download;
            avg_d_mbps --> download;
-           q -.-> upload(("<a href='#avg_up_using_devices'> avg_up_using_devices </a>"));
+           q -.-> upload(("<a href='#avgupusingdevices'> avg_up_using_devices </a>"));
            year -.-> upload;
            devices -.-> upload;
            %% step3_generalized.Rmd:  sum(upload_devices * devices, na.rm = T) / sum(devices, na.rm = T), (Why do we need this? Isn't it multiplying the sum of upload speed by 1
@@ -125,6 +125,7 @@ end
 ```
 
 ## Formulas for calculating the measures
+
 ### avg_up_using_devices
 ```math
 \left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
