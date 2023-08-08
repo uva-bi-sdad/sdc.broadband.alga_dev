@@ -144,6 +144,11 @@ where $n$ is the number of devices, $g$ the geography, and $q$ the quarter.
 ```
 where $d$ is the average download speed for the geography $g$, quarter $q$, and $n$ is the number of devices.
 
+4. **perc_income_min_price_25**
+```math
+\textbf{p} = \frac{\text{Percentage of income for lowest upload speed}\ge\text{25 Mbps price in geography }g}{\text{Total number of geographies}} = \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{upload}\ge 25\text{mbps}, g)})}{\text{B19013\_001}_g}}}{|\textbf{g}|}
+```
+
 ## Quickstart
 - `git submodule update --recursive --remote` to download the submodules
 - Run things in the `code` directory to generate the required datasets
