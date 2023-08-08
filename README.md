@@ -128,8 +128,9 @@ end
 
 ### avg_up_using_devices
 ```math
-\textbf{a}_{upload} = \frac{\sum_{geo}{(a_{(upload, geo)} * n_{devices_{geo}}})}{\sum_{geo}{n_{devices_{geo}}}}
+\textbf{u} = \frac{\text{Total speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(u_{(g, q)} * d_{(g,q)}})}{\sum_{q}\sum_{g}{d_{(g,q)}}}
 ```
+$u$ is the average upload speed for the geography $g$, quarter $q$, and $d$ is the number of devices.
 
 ## Quickstart
 - `git submodule update --recursive --remote` to download the submodules
