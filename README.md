@@ -79,7 +79,7 @@ end
            B28002_001 --> perc_hh_with_broadband_c;
            perc_hh_with_broadband_c -- perc_hh_with_broadband --> perc_hh_with_broadband_node["Percentage of households self-reported to have a broadband internet connection. </br> Broadband internet is defined as any type of internet other than a dial-up"];
 
-           B19013_001 --> perc_income_min_price_25_c(("min(price| upload & speed >= </br> 25 Mbps)/B19013_001*100"));
+           B19013_001 --> perc_income_min_price_25_c((" "));
            price --> perc_income_min_price_25_c;
            B19013_001 --> perc_income_min_price_25_c;
            speed -.-> perc_income_min_price_25_c;
