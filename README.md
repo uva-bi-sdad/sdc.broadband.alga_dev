@@ -46,10 +46,10 @@ subgraph OOKLA_G["sdc.broadband.ookla"]
 end
 
 %% Calculations
-           q -.-> dev(("sum(devices)/4q"));
+           q -.-> dev((" "));
            year -.-> dev;
            devices --> dev;
-           q -.-> download(("sum(avg_d_mbps)/4q * </br>device_in_geo_level/ device_in_county"));
+           q -.-> download((" "));
            year -.-> download;
            devices -.-> download;
            avg_d_mbps --> download;
@@ -60,9 +60,9 @@ end
            %% upon further inspection: above_20_up<-- pnorm(20, md_merged_data_up_devices$upload_devices, md_merged_data_up_devices$sd_county_up_devices, lower.tail = F) * 100 # a density distribution where mean is the upload devices, and standard deviation is equal to the sd_county_up_devices
            %% perc_w_int_above_20_up_using_devices <-- above_20_up
            avg_u_mbps --> upload;
-           download -- avg_down_using_devices --> avg_down_using_devices_node["Average download speed weighted by number of devices"];
+           download -- avg_down_using_devices --> avg_down_using_devices_node["<a style='color:#00FF00'>Average download speed weighted by number of devices</a>"];
            upload -- avg_up_using_devices --> avg_up_using_devices_node["<a style='color:#00FF00'>Average upload speed weighted by number of devices</a>"];
-           dev -- devices --> devices_node["The number of unique devices accessing Ookla Internet speed tests"];
+           dev -- devices --> devices_node["<a style='color:#00FF00'>The number of unique devices accessing Ookla Internet speed tests</a>"];
 
            price --> perc_income_min_price_100(("min(price| upload & speed >= </br> 100 Mbps)/B19013_001*100"))
            B19013_001 --> perc_income_min_price_100;
@@ -126,11 +126,23 @@ end
 
 ## Formulas for calculating the measures
 
-1. avg_up_using_devices
+1. **avg_up_using_devices**
 ```math
-\textbf{u} = \frac{\text{Total speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(u_{(g, q)} * d_{(g,q)}})}{\sum_{q}\sum_{g}{d_{(g,q)}}}
+\textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(u_{(g, q)} * n_{(g,q)}})}{\sum_{q}\sum_{g}{n_{(g,q)}}}
 ```
-where $u$ is the average upload speed for the geography $g$, quarter $q$, and $d$ is the number of devices.
+where $u$ is the average upload speed for the geography $g$, quarter $q$, and $n$ is the number of devices.
+
+2. **devices**
+```math
+\textbf{n} = \sum_{q}\sum_{g}{n_{(g,q)}}
+```
+where $n$ is the number of devices, $g$ the geography, and $q$ the quarter.
+
+3. **avg_down_using_devices**
+```math
+\textbf{d} = \frac{\text{Total download speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(d_{(g, q)} * n_{(g,q)}})}{\sum_{q}\sum_{g}{n_{(g,q)}}}
+```
+where $d$ is the average download speed for the geography $g$, quarter $q$, and $n$ is the number of devices.
 
 ## Quickstart
 - `git submodule update --recursive --remote` to download the submodules
