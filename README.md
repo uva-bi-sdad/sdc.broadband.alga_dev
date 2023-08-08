@@ -88,9 +88,15 @@ end
 
            %% On calculating perc_total_25_3_using_devices
            %%           with_internet = B28002_001 - B28002_013
+           %%           The probability that 25 Mbps is greater than a randomly drawn value in the known samples, P[X>x], fitted to a normal distribution
            %%           perc_w_int_above_25_down_using_devices <- pnorm(25, va_merged_data_down_tests$download_tests,va_merged_data_down_tests$sd_county_down_tests, lower.tail = F) * 100
            %%           perc_w_int_above_25_down_using_devices = sum(pop_w_int_above_25_down_using_devices, na.rm = T) / sum(w_internet, na.rm = T), 
-           %%           perc_total_above_25_down_using_devices = perc_w_int_above_25_down_using_devices * w_internet/tpopE,
+           %%           perc_total_above_25_down_using_devices = perc_w_int_above_25_down_using_devices * w_internet/B28002_001
+
+           B28002_001 --> perc_w_int_100_20_using_devices_c(("mean of the min probabilities</br> of sum(pnorm(100, avg_d_mbps))</br>/sum(B28002_001-B28002_013)</br>*sum(B28002_001-B28002_013)??"));
+           B28002_013 --> perc_w_int_100_20_using_devices_c;
+           avg_d_mbps --> perc_w_int_100_20_using_devices_c;
+           perc_w_int_100_20_using_devices_c -- perc_w_int_100_20_using_devices --> perc_w_int_100_20_using_devices_node["Percent of the internet-connected population with a fast internet speed </br> (above 100 Mbps Download and  20 Mbps Upload, able to stream HD video on multiple devices or download large files quickly)"];
 
 subgraph OUTPUT_G["Outputs"]
            avg_down_using_devices_node;
@@ -108,7 +114,6 @@ subgraph OUTPUT_G["Outputs"]
 end
 
 %% Not yet complete
-           TBA -- perc_w_int_100_20_using_devices --> perc_w_int_100_20_using_devices_node["Percent of the internet-connected population with a fast internet speed </br> (above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly)"];
            TBA -- perc_total_100_20_using_devices --> perc_total_100_20_using_devices_node["Percent of the total population with a fast internet speed </br>(above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly)"];
            TBA -- perc_w_int_25_3_using_devices --> perc_w_int_25_3_using_devices_node["Percent of the internet-connected population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
            TBA -- perc_total_25_3_using_devices --> perc_total_25_3_using_devices_node["Percent of the total population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
