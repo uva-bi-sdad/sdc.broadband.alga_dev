@@ -70,7 +70,7 @@ end
            down_up -.-> perc_income_min_price_100;
 
            perc_income_min_price_100 -- perc_income_min_price_100 --> perc_income_min_price_100_node["The minimum price for fast internet (100 MB/s upload)</br> as a percentage of median household income"];
-           avg_nat -- perc_income_avg_nat_package -->perc_income_avg_nat_package_node["The national average price for internet ($75)</br> as a percentage of median household income"];
+           avg_nat -- perc_income_avg_nat_package -->perc_income_avg_nat_package_node["<a style='color:#FFA500'>'The national average price for internet ($75)</br> as a percentage of median household income'</a>"];
            B28001_001 --> perc_hh_without_compdev_c;
            B28001_002 --> perc_hh_without_compdev_c;
            perc_hh_without_compdev_c(("(B28001_001-B28001_002)</br>/B28001_001*100"));
