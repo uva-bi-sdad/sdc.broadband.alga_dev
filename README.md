@@ -64,7 +64,7 @@ end
            upload -- avg_up_using_devices --> avg_up_using_devices_node["Average upload speed weighted by number of devices"];
            dev -- devices --> devices_node["The number of unique devices accessing Ookla Internet speed tests"];
 
-           price --> perc_income_min_price_100(("min(price| upload &</br> speed >= 100 Mbps)/B19013_001"))
+           price --> perc_income_min_price_100(("min(price| upload & speed >= </br> 100 Mbps)/B19013_001*100"))
            B19013_001 --> perc_income_min_price_100;
            speed -.-> perc_income_min_price_100;
            down_up -.-> perc_income_min_price_100;
@@ -79,7 +79,7 @@ end
            B28002_001 --> perc_hh_with_broadband_c;
            perc_hh_with_broadband_c -- perc_hh_with_broadband --> perc_hh_with_broadband_node["Percentage of households self-reported to have a broadband internet connection. </br> Broadband internet is defined as any type of internet other than a dial-up"];
 
-           B19013_001 --> perc_income_min_price_25_c(("min(price| upload &</br> speed >= 25 Mbps)/B19013_001"));
+           B19013_001 --> perc_income_min_price_25_c(("min(price| upload & speed >= </br> 25 Mbps)/B19013_001*100"));
            price --> perc_income_min_price_25_c;
            B19013_001 --> perc_income_min_price_25_c;
            speed -.-> perc_income_min_price_25_c;
