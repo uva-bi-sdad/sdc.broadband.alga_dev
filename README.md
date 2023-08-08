@@ -61,7 +61,7 @@ end
            %% perc_w_int_above_20_up_using_devices <-- above_20_up
            avg_u_mbps --> upload;
            download -- avg_down_using_devices --> avg_down_using_devices_node["Average download speed weighted by number of devices"];
-           upload -- avg_up_using_devices --> avg_up_using_devices_node["Average upload speed weighted by number of devices"];
+           upload -- avg_up_using_devices --> avg_up_using_devices_node["<a style='color:#00FF00'>Average upload speed weighted by number of devices</a>"];
            dev -- devices --> devices_node["The number of unique devices accessing Ookla Internet speed tests"];
 
            price --> perc_income_min_price_100(("min(price| upload & speed >= </br> 100 Mbps)/B19013_001*100"))
@@ -126,11 +126,11 @@ end
 
 ## Formulas for calculating the measures
 
-### avg_up_using_devices
+1. avg_up_using_devices
 ```math
 \textbf{u} = \frac{\text{Total speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(u_{(g, q)} * d_{(g,q)}})}{\sum_{q}\sum_{g}{d_{(g,q)}}}
 ```
-$u$ is the average upload speed for the geography $g$, quarter $q$, and $d$ is the number of devices.
+where $u$ is the average upload speed for the geography $g$, quarter $q$, and $d$ is the number of devices.
 
 ## Quickstart
 - `git submodule update --recursive --remote` to download the submodules
