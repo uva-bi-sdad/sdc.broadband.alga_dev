@@ -4,7 +4,7 @@ library(community)
 # entities_file <- "../entities.rds"
 # if (file.exists(entities_file)) {
 #   entities <- readRDS(entities_file)
-# } else {
+# } else {R
 #   file <- tempfile(fileext = ".csv.xz")
 #   download.file(paste0(
 #     "https://raw.githubusercontent.com/uva-bi-sdad/sdc.geographies/main/",
@@ -21,18 +21,21 @@ entities <- vroom::vroom("docs/data/custom_entity.csv")
 check_repository(dataset = structure(entities$region_type, names = entities$geoid), exclude=c('sdc.broadband.acs', 'sdc.broadband.ookla', 'sdc.broadband.broadbandnow'))
 
 # rebuild site
-
-
-
 ## unify original files
-datasets <- "data/Accessibility/Average Download Speed/data/distribution"
+
+avg_down_using_devices <- Sys.glob("data/Accessibility/Average Download Speed/data/distribution/*.csv.xz")
+avg_up_using_devices <- Sys.glob("data/Accessibility/Average Upload Speed/data/distribution/*.csv.xz")
+datasets <- c(avg_down_using_devices, avg_up_using_devices)
 
 data_reformat_sdad(
   datasets, "docs/data", metadata = entities,
   entity_info = NULL, overwrite=TRUE
 )
 info <- lapply(
-  list.files(datasets, "measure_info\\.json", full.names = TRUE),
+  c(
+    Sys.glob("data/Accessibility/Average Download Speed/data/distribution/measure_info.json"),
+    Sys.glob("data/Accessibility/Average Upload Speed/data/distribution/measure_info.json")
+  ),
   jsonlite::read_json
 )
 agg_info <- list()
@@ -93,3 +96,4 @@ data_add(
 )
 
 site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE, version="local")
+# site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE)

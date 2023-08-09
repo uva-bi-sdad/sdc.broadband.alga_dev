@@ -29,7 +29,7 @@ def generate_higher_geo(df, geoid_length=11):
 
 
 def avg_up_using_devices():
-    export_dir = "../data/distribution/Accessibility/Average Upload Speed/"
+    export_dir = "../data/Accessibility/Average Upload Speed/data/distribution"
     files = sorted(pathlib.Path(settings.OOKLA_DATA_DIR).glob("*.csv.xz"))
     pbar = tqdm(files)
     for file in pbar:
@@ -51,13 +51,14 @@ def avg_up_using_devices():
         devices_sum = (
             df.groupby(["geoid", "year"])["devices"].agg("sum").to_frame().reset_index()
         )
-        bg_df = pd.merge(avg_u_sum, devices_sum, on=["geoid", "year"])
-        bg_df["measure"] = "avg_up_using_devices"
-        bg_df["value"] = bg_df["upload_speed"] / bg_df["devices"]
-        bg_df = bg_df.reindex(settings.STANDARD_COLS, axis="columns")
-        bg_df["region_type"] = "block_group"
+        bdf = pd.merge(avg_u_sum, devices_sum, on=["geoid", "year"])
+        bdf["measure"] = "avg_up_using_devices"
+        bdf["value"] = bdf["upload_speed"] / bdf["devices"]
+        bdf = bdf.reindex(settings.STANDARD_COLS, axis="columns")
+        bdf["region_type"] = "block"
 
         # Generating summaries at a census tract level
+        bg_df = generate_higher_geo(df, 12)
         ct_df = generate_higher_geo(df, 11)
         c_df = generate_higher_geo(df, 5)
 
