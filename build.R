@@ -25,17 +25,15 @@ check_repository(dataset = structure(entities$region_type, names = entities$geoi
 
 avg_down_using_devices <- Sys.glob("data/Accessibility/Average Download Speed/data/distribution/*.csv.xz")
 avg_up_using_devices <- Sys.glob("data/Accessibility/Average Upload Speed/data/distribution/*.csv.xz")
-datasets <- c(avg_down_using_devices, avg_up_using_devices)
+devices <- Sys.glob("data/Accessibility/Number of Devices/data/distribution/*.csv.xz")
+datasets <- c(avg_down_using_devices, avg_up_using_devices, devices)
 
 data_reformat_sdad(
   datasets, "docs/data", metadata = entities,
   entity_info = NULL, overwrite=TRUE
 )
 info <- lapply(
-  c(
-    Sys.glob("data/Accessibility/Average Download Speed/data/distribution/measure_info.json"),
-    Sys.glob("data/Accessibility/Average Upload Speed/data/distribution/measure_info.json")
-  ),
+  paste0('data/', list.files(path='data', pattern = "measure_info.json$", recursive = TRUE)),
   jsonlite::read_json
 )
 agg_info <- list()
@@ -95,5 +93,5 @@ data_add(
   dir = "docs/data"
 )
 
-site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE, version="local")
-# site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE)
+# site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE, version="local")
+site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE)

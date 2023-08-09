@@ -38,5 +38,272 @@
     "unit": "",
     "data_type": "numeric",
     "measure_type": "mean"
+  },
+  "devices": {
+    "category": "Broadband",
+    "measure_table": "dcmdva_hdcttrbg_2019_2021q3_speed_measurements",
+    "full_name": "speed_measurements:devices",
+    "short_name": "Number of devices",
+    "long_name": "Number of devices",
+    "short_description": "The number of unique devices accessing Ookla Internet speed tests.",
+    "statement": "There are {value} unique devices in {features.name} accessing Ookla Internet speed tests.",
+    "type": "count",
+    "equity_category": "Accessibility",
+    "sources": [
+      {
+        "name": "Ookla",
+        "date_accessed": 2021,
+        "url": "https://www.ookla.com/ookla-for-good/open-data"
+      }
+    ],
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "count"
+  },
+  "perc_w_int_100_20_using_devices": {
+    "category": "Broadband",
+    "full_name": "perc_w_int_100_20_using_devices",
+    "short_name": "Percent Fast (internet-connected)",
+    "long_name": "Percent of the Internet-Connected Population with Fast Internet Speed",
+    "short_description": "Percent of the internet-connected population with a fast internet speed (above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly).",
+    "statement": "{value} of the internet-connected population in {features.name} has a fast internet speed.",
+    "type": "percent",
+    "equity_category": "Availability",
+    "sources": [
+      {
+        "name": "Ookla",
+        "date_accessed": 2021,
+        "url": "https://www.ookla.com/ookla-for-good/open-data"
+      }
+    ],
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "percent"
+  },
+  "perc_total_100_20_using_devices": {
+    "category": "Broadband",
+    "measure_table": "dcmdva_hdcttrbg_2019_2021q3_percent_above_threshold",
+    "full_name": "percent_above_threshold:perc_total_100_20_using_devices",
+    "short_name": "Percent Fast (total)",
+    "long_name": "Percent of the Total Population with Fast Internet Speed",
+    "short_description": "Percent of the total population with a fast internet speed (above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly).",
+    "statement": "{value} of the total population in {features.name} has a fast internet speed.",
+    "type": "percent",
+    "equity_category": "Availability",
+    "sources": [
+      {
+        "name": "Ookla",
+        "date_accessed": 2021,
+        "url": "https://www.ookla.com/ookla-for-good/open-data"
+      }
+    ],
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "percent"
+  },
+  "perc_w_int_25_3_using_devices": {
+    "category": "Broadband",
+    "measure_table": "dcmdva_hdcttrbg_2019_2021q3_percent_above_threshold",
+    "full_name": "percent_above_threshold:perc_w_int_25_3_using_devices",
+    "short_name": "Percent Good (internet-connected)",
+    "long_name": "Percent of the Internet-Connected Population with Good Internet Speed",
+    "short_description": "Percent of the internet-connected population with a good internet speed (above 25/3 MB/s, able to stream video or online game for one device).",
+    "statement": "{value} of the internet-connected population in {features.name} has a good internet speed.",
+    "type": "percent",
+    "equity_category": "Availability",
+    "sources": [
+      {
+        "name": "Ookla",
+        "date_accessed": 2021,
+        "url": "https://www.ookla.com/ookla-for-good/open-data"
+      }
+    ],
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "percent"
+  },
+  "perc_total_25_3_using_devices": {
+    "category": "Broadband",
+    "measure_table": "dcmdva_hdcttrbg_2019_2021q3_percent_above_threshold",
+    "full_name": "percent_above_threshold:perc_total_25_3_using_devices",
+    "short_name": "Percent Good (total)",
+    "long_name": "Percent of the Total Population with Good Internet Speed",
+    "short_description": "Percent of the total population with a good internet speed (above 25/3 MB/s, able to stream video or online game for one device).",
+    "statement": "{value} of the total population in {features.name} has a good internet speed.",
+    "type": "percent",
+    "equity_category": "Availability",
+    "sources": [
+      {
+        "name": "Ookla",
+        "date_accessed": 2021,
+        "url": "https://www.ookla.com/ookla-for-good/open-data"
+      }
+    ],
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "percent"
+  },
+  "perc_hh_with_broadband": {
+    "category": "Broadband",
+    "full_name": "perc_hh_with_broadband",
+    "type": "percent",
+    "short_name": "Households with broadband",
+    "long_name": "Percentage of households with broadband",
+    "short_description": "Percentage of households self-reported to have a broadband internet connection (any type of internet other than a dial-up)",
+    "long_description": "Percentage of households self-reported to have a broadband internet connection. Broadband internet is defined as any type of internet other than a dial-up. Based on American Community Survey Table B28002 in ACS 2015/2019 5-year estimates.",
+    "statement": "{value} of households in {features.name} have a broadband connection.",
+    "equity_category": "Availability",
+    "sources": [
+      {
+        "name": "American Community Survey Table B28002",
+        "date_accessed": 2021,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "percent"
+  },
+  "perc_hh_with_cable_fiber_dsl": {
+    "category": "Broadband",
+    "measure_table": "dcmdva_hdcttrbg_2017_2019_broadband_withoutint_compdev",
+    "full_name": "broadband_withoutint_compdev:perc_hh_with_cable_fiber_dsl",
+    "type": "percent",
+    "short_name": "Households with cable, fiber optic, or DSL",
+    "long_name": "Percentage of households with a high speed internet service (cable, fiber optic, or DSL)",
+    "short_description": "Percentage of households self-reported to have a high speed internet service (cable, fiber optic, or DSL)",
+    "long_description": "Percentage of households self-reported to have a high speed internet service. A high speed internet service is defined as a cable, fiber optic, or DSL internet connection. Based on American Community Survey Table B28002 in ACS 2015/2019 5-year estimates.",
+    "statement": "{value} of households in {features.name} have a cable, fiber optic, or DSL internet connection.",
+    "equity_category": "Availability",
+    "sources": [
+      {
+        "name": "American Community Survey Table B28002",
+        "date_accessed": 2021,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "percent"
+  },
+  "perc_hh_without_compdev": {
+    "category": "Broadband",
+    "measure_table": "dcmdva_hdcttrbg_2017_2019_broadband_withoutint_compdev",
+    "full_name": "broadband_withoutint_compdev:perc_hh_without_compdev",
+    "type": "percent",
+    "short_name": "Households without a computer",
+    "long_name": "Percentage of households without a computer",
+    "short_description": "Percentage of households self-reported to not have a computer or device at home",
+    "long_description": "Percentage of the households self-reported to not have a computer or device at home. Based on American Community Survey Table B28002 in ACS 2015/2019 5-year estimates.",
+    "statement": "{value} of households in {features.name} do not have a computer or device.",
+    "equity_category": "Accessibility",
+    "sources": [
+      {
+        "name": "American Community Survey Table B28002",
+        "date_accessed": 2021,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "percent"
+  },
+  "perc_hh_without_internet": {
+    "category": "Broadband",
+    "measure_table": "dcmdva_hdcttrbg_2017_2019_broadband_withoutint_compdev",
+    "full_name": "broadband_withoutint_compdev:perc_hh_without_internet",
+    "type": "percent",
+    "short_name": "Households without internet access",
+    "long_name": "Percentage of households without internet access",
+    "short_description": "Percentage of households self-reported to not have internet access at home",
+    "long_description": "Percentage of households self-reported to not have internet access at home. Based on American Community Survey Table B28002 in ACS 2015/2019 5-year estimates.",
+    "statement": "{value} of households in {features.name} do not have internet access.",
+    "equity_category": "Availability",
+    "sources": [
+      {
+        "name": "American Community Survey Table B28002",
+        "date_accessed": 2021,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      }
+    ],
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "percent"
+  },
+  "perc_income_min_price_100": {
+    "category": "Broadband",
+    "short_name": "Percentage of income for fast internet",
+    "long_name": "The minimum price for fast internet (100 MB/s upload) as a percentage of median household income",
+    "short_description": "The minimum price for fast internet (100 MB/s upload) as a percent of median household income",
+    "long_description": "The minimum price for fast internet (100 MB/s upload) as a percentage of median household income.",
+    "statement": "Fast internet costs {value} of the median household income in {features.name}.",
+    "equity_category": "Affordability",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "date_accessed": 2023,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      },
+      {
+        "name": "Broadband Now",
+        "date_accessed": 2023,
+        "url": "https://broadbandnow.com/"
+      }
+    ],
+    "unit": "percent",
+    "data_type": "decimal",
+    "aggregation_method": "percent"
+  },
+  "perc_income_min_price_25": {
+    "category": "Broadband",
+    "full_name": "perc_income_min_price_25",
+    "type": "percent",
+    "short_name": "Percentage of income for good internet",
+    "long_name": "The minimum price for good internet (25 MB/s upload) as a percentage of median household income",
+    "short_description": "The minimum price for good internet (25 MB/s upload) as a percentage of median household income",
+    "long_description": "The minimum price for good internet (25 MB/s upload) as a percentage of median household income.",
+    "statement": "Good internet costs {value} of the median household income in {features.name}.",
+    "equity_category": "Affordability",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "date_accessed": 2023,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      },
+      {
+        "name": "Broadband Now",
+        "date_accessed": 2023,
+        "url": "https://broadbandnow.com/"
+      }
+    ],
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "percent"
+  },
+  "perc_income_avg_nat_package": {
+    "category": "Broadband",
+    "full_name": "perc_income_avg_nat_package",
+    "type": "percent",
+    "short_name": "Percentage of income for internet (average)",
+    "long_name": "The national average price for internet as a percentage of average income",
+    "short_description": "The national average price for internet ($64) as a percentage of median household income",
+    "long_description": "The national average price for internet ($64) as a percentage of median household income.",
+    "statement": "The national average internet package costs {value} of the median household income in {features.name}.",
+    "equity_category": "Affordability",
+    "sources": [
+      {
+        "name": "American Community Survey",
+        "date_accessed": 2023,
+        "url": "https://www.census.gov/programs-surveys/acs.html"
+      },
+      {
+        "name": "Broadband Now",
+        "date_accessed": 2023,
+        "url": "https://broadbandnow.com/"
+      }
+    ],
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "percent"
   }
 }
