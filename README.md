@@ -146,17 +146,17 @@ where $d$ is the average download speed for the geography $g$, quarter $q$, and 
 
 ### perc_income_min_price_25
 ```math
-\textbf{p} = \frac{\text{Percentage of income for lowest upload speed}\ge\text{25 Mbps price in geography }g}{\text{Total number of geographies}}* 100 = \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{upload}\ge 25\text{mbps}, g)})}{\text{B19013\_001}_g}}}{|\textbf{g}|}* 100
+\textbf{p} = \frac{\text{Percentage of income for lowest upload speed}\ge\text{25 Mbps price in geography }g}{\text{Total number of geographies}}* 100 = \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{upload}\ge 25\text{mbps}, g)})*12}{\text{B19013\_001}_g}}}{|\textbf{g}|}* 100
 ```
 
 ### perc_income_min_price_100
 ```math
-\textbf{p} = \frac{\text{Percentage of income for lowest upload speed}\ge\text{100 Mbps price in geography }g}{\text{Total number of geographies}}*100=\\ \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{upload}\ge 100\text{mbps}, g)})}{\text{B19013\_001}_g}}}{|\textbf{g}|}*100
+\textbf{p} = \frac{\text{Percentage of income for lowest upload speed}\ge\text{100 Mbps price in geography }g}{\text{Total number of geographies}}*100=\\ \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{upload}\ge 100\text{mbps}, g)})*12}{\text{B19013\_001}_g}}}{|\textbf{g}|}*100
 ```
 
 ### perc_income_avg_nat_package
 ```math
-\textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = 75 \frac{|\textbf{g}|}{\sum_g{\text{B19013\_001}_g}}*100
+\textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = 75*12 \frac{|\textbf{g}|}{\sum_g{\text{B19013\_001}_g}}*100
 ```
 
 ## Quickstart
