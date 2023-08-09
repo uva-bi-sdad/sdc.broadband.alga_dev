@@ -1,6 +1,7 @@
 # sdc.broadband.alga_dev
-Example repository of putting smaller sample data repositories together
+A repository for calculating and storing broadband measures for Alabama and Georgia counties
 
+## Data pipeline
 ```mermaid
 graph LR;
 %% Median Price for Internet in 2022
@@ -126,35 +127,35 @@ end
 
 ## Methods for calculating measures
 
-1. **avg_up_using_devices**
+### avg_up_using_devices
 ```math
 \textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(u_{(g, q)} n_{(g,q)}})}{\sum_{q}\sum_{g}{n_{(g,q)}}}
 ```
 where $u$ is the average upload speed for the geography $g$, quarter $q$, and $n$ is the number of devices.
 
-2. **devices**
+### devices
 ```math
 \textbf{n} = \sum_{q}\sum_{g}{n_{(g,q)}}
 ```
 where $n$ is the number of devices, $g$ the geography, and $q$ the quarter.
 
-3. **avg_down_using_devices**
+### avg_down_using_devices
 ```math
 \textbf{d} = \frac{\text{Total download speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(d_{(g, q)} n_{(g,q)}})}{\sum_{q}\sum_{g}{n_{(g,q)}}}
 ```
 where $d$ is the average download speed for the geography $g$, quarter $q$, and $n$ is the number of devices.
 
-4. **perc_income_min_price_25**
+### perc_income_min_price_25
 ```math
 \textbf{p} = \frac{\text{Percentage of income for lowest upload speed}\ge\text{25 Mbps price in geography }g}{\text{Total number of geographies}}* 100 = \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{upload}\ge 25\text{mbps}, g)})}{\text{B19013\_001}_g}}}{|\textbf{g}|}* 100
 ```
 
-5. **perc_income_min_price_100**
+### perc_income_min_price_100
 ```math
 \textbf{p} = \frac{\text{Percentage of income for lowest upload speed}\ge\text{100 Mbps price in geography }g}{\text{Total number of geographies}}*100=\\ \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{upload}\ge 100\text{mbps}, g)})}{\text{B19013\_001}_g}}}{|\textbf{g}|}*100
 ```
 
-6. **perc_income_avg_nat_package**
+### perc_income_avg_nat_package
 ```math
 \textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = 75 \frac{|\textbf{g}|}{\sum_g{\text{B19013\_001}_g}}*100
 ```
