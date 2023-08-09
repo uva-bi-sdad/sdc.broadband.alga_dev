@@ -33,6 +33,9 @@ def avg_down_using_devices():
     files = sorted(pathlib.Path(settings.OOKLA_DATA_DIR).glob("*.csv.xz"))
     pbar = tqdm(files)
     for file in pbar:
+        # Skip non-related counties
+        if not file.name[:5] in settings.COUNTIES_TO_FOCUS:
+            continue
         df = pd.read_csv(file, dtype={"GEOID20": object})
         # Filter out empty and invalid rows
         df = df[(df["avg_d_mbps"] >= 0) & (df["avg_d_mbps"].notnull())].copy()
@@ -51,11 +54,11 @@ def avg_down_using_devices():
         devices_sum = (
             df.groupby(["geoid", "year"])["devices"].agg("sum").to_frame().reset_index()
         )
-        b_df = pd.merge(avg_u_sum, devices_sum, on=["geoid", "year"])
-        b_df["measure"] = "avg_down_using_devices"
-        b_df["value"] = b_df["download_speed"] / b_df["devices"]
-        b_df = b_df.reindex(settings.STANDARD_COLS, axis="columns")
-        b_df["region_type"] = "block"
+        bdf = pd.merge(avg_u_sum, devices_sum, on=["geoid", "year"])
+        bdf["measure"] = "avg_down_using_devices"
+        bdf["value"] = bdf["download_speed"] / bdf["devices"]
+        bdf = bdf.reindex(settings.STANDARD_COLS, axis="columns")
+        bdf["region_type"] = "block"
 
         # Generating summaries at a census tract level
         bg_df = generate_higher_geo(df, 12)

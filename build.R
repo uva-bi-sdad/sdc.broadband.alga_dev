@@ -26,7 +26,10 @@ check_repository(dataset = structure(entities$region_type, names = entities$geoi
 avg_down_using_devices <- Sys.glob("data/Accessibility/Average Download Speed/data/distribution/*.csv.xz")
 avg_up_using_devices <- Sys.glob("data/Accessibility/Average Upload Speed/data/distribution/*.csv.xz")
 devices <- Sys.glob("data/Accessibility/Number of Devices/data/distribution/*.csv.xz")
-datasets <- c(avg_down_using_devices, avg_up_using_devices, devices)
+perc_income_min_price_25 <- Sys.glob("data/Affordability/Percentage of income for good internet/data/distribution/*.csv.xz")
+perc_income_min_price_100 <- Sys.glob("data/Affordability/Percentage of income for fast internet/data/distribution/*.csv.xz")
+perc_income_avg_nat_package <- Sys.glob("data/Affordability/Percentage of income for internet (average)/data/distribution/*.csv.xz")
+datasets <- c(avg_down_using_devices, avg_up_using_devices, devices, perc_income_min_price_25,perc_income_min_price_100,perc_income_avg_nat_package)
 
 data_reformat_sdad(
   datasets, "docs/data", metadata = entities,
