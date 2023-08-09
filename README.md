@@ -82,7 +82,6 @@ end
 
            B19013_001 --> perc_income_min_price_25_c((" "));
            price --> perc_income_min_price_25_c;
-           B19013_001 --> perc_income_min_price_25_c;
            speed -.-> perc_income_min_price_25_c;
            down_up -.-> perc_income_min_price_25_c;
            perc_income_min_price_25_c -- perc_income_min_price_25 -->perc_income_min_price_25_node["<a style='color:#00FF00'>The minimum price for good internet (25 MB/s upload)</br> as a percentage of median household income</a>"];
