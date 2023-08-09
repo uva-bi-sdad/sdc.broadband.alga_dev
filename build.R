@@ -18,14 +18,14 @@ library(community)
 entities <- vroom::vroom("docs/data/custom_entity.csv")
 
 # check data and measure info
-check_repository(dataset = structure(entities$region_type, names = entities$geoid))
+check_repository(dataset = structure(entities$region_type, names = entities$geoid), exclude=c('sdc.broadband.acs', 'sdc.broadband.ookla', 'sdc.broadband.broadbandnow'))
 
 # rebuild site
 
 
 
 ## unify original files
-datasets <- "data/distribution"
+datasets <- "data/Accessibility/Average Download Speed/data/distribution"
 
 
 data_reformat_sdad(

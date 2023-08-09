@@ -1,26 +1,22 @@
 {
-  "perc_income_min_price_100": {
+  "avg_down_using_devices": {
     "category": "Broadband",
-    "short_name": "Percentage of income for fast internet",
-    "long_name": "The minimum price for fast internet (100 MB/s upload) as a percentage of median household income",
-    "short_description": "The minimum price for fast internet (100 MB/s upload) as a percent of median household income",
-    "long_description": "The minimum price for fast internet (100 MB/s upload) as a percentage of median household income.",
-    "statement": "Fast internet costs {value} of the median household income in {features.name}.",
-    "equity_category": "Affordability",
+    "full_name": "avg_down_using_devices",
+    "short_name": "Average Download Speed",
+    "long_name": "Average Download Speed",
+    "short_description": "Average download speed weighted by number of devices for 2022.",
+    "statement": "The average download speed is {value} in {features.name}.",
+    "type": "internet speed",
+    "equity_category": "Availability",
     "sources": [
       {
-        "name": "American Community Survey",
+        "name": "Ookla",
         "date_accessed": 2023,
-        "url": "https://www.census.gov/programs-surveys/acs.html"
-      },
-      {
-        "name": "Broadband Now",
-        "date_accessed": 2023,
-        "url": "https://broadbandnow.com/"
+        "url": "https://www.ookla.com/ookla-for-good/open-data"
       }
     ],
-    "unit": "percent",
-    "data_type": "decimal",
-    "aggregation_method": "percent"
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "speed"
   }
 }
