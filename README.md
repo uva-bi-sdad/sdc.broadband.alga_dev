@@ -161,7 +161,8 @@ where $d$ is the average download speed for the geography $g$, quarter $q$, and 
 
 ## Quickstart
 - `git submodule update --recursive --remote` to download the submodules
-- Run things in the `code` directory to generate the required datasets
+- Run `python prepare_broadband_dataset.py` to generate the dataset
+- Run `build.R` to generate the dashboard
 
 ## Example Data Output
 ```python
