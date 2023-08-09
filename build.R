@@ -18,15 +18,14 @@ library(community)
 entities <- vroom::vroom("docs/data/custom_entity.csv")
 
 # check data and measure info
-check_repository(dataset = structure(entities$region_type, names = entities$geoid))
+check_repository(dataset = structure(entities$region_type, names = entities$geoid), exclude=c('sdc.broadband.acs', 'sdc.broadband.ookla', 'sdc.broadband.broadbandnow'))
 
 # rebuild site
 
 
 
 ## unify original files
-datasets <- "data/distribution"
-
+datasets <- "data/Accessibility/Average Download Speed/data/distribution"
 
 data_reformat_sdad(
   datasets, "docs/data", metadata = entities,
@@ -60,9 +59,9 @@ if (!length(map_files)) {
   ids <- unique(unlist(lapply(files, function(f) {
     unique(vroom::vroom(f, col_select = "ID", show_col_types = FALSE)[[1]])
   })))
-  # states <- unique(substring(ids[
-  #   ids %in% entities$geoid[entities$region_type %in% c("county", "tract", "block group")]
-  # ], 1, 2))
+  states <- unique(substring(ids[
+    ids %in% entities$geoid[entities$region_type %in% c("county", "tract", "block group")]
+  ], 1, 2))
   states <- unique(substring(ids,1,2))
   years <- as.numeric(unique(unlist(lapply(files, function(f) {
     unique(vroom::vroom(f, col_select = "time", show_col_types = FALSE)[[1]])
@@ -93,4 +92,4 @@ data_add(
   dir = "docs/data"
 )
 
-site_build(".", serve = TRUE, open_after = TRUE, aggregate = FALSE)
+site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE, version="local")

@@ -127,7 +127,7 @@ page_navbar(
 # use `input_` functions to add input elements that affect outputs
 page_menu(
   input_checkbox(
-    "Starting Layer", "block_group", 0,
+    "Starting Layer", c("county", "tract", "block_group"), 0, c("Counties", "Census Tracts", "Block Groups"),
     id = "shape_type", multi = FALSE, note = "Which geographies to show at the state level."
   ),
   page_section(

@@ -1,27 +1,42 @@
 # sdc.broadband.alga_dev
-Example repository of putting smaller sample data repositories together
+A repository for calculating and storing broadband measures for Alabama and Georgia counties
 
+## Data pipeline
 ```mermaid
 graph LR;
-%% ACS things:
+%% Median Price for Internet in 2022
+           med_int_price[<a href='https://advocacy.consumerreports.org/wp-content/uploads/2022/11/FINAL.report-broadband.november-17-2022-2.pdf'>Median Internet Price 2022</a>];
+           med_int_price--75$-->avg_nat((" "));
+           B19013_001-->avg_nat;
+
+%% ACS things: 
+subgraph ACS_G["sdc.broadband.acs"]
+           ACS[<a href='https://www.census.gov/programs-surveys/acs'>ACS</a>];
            year=2021-->ACS;
-           ACS--B19013_001-->B19013_001["MEDIAN HOUSEHOLD INCOME IN THE PAST 12 MONTHS <br/>(IN 2021 INFLATION-ADJUSTED DOLLARS)"];
-           ACS--B28002_001-->B28002_001["PRESENCE AND TYPES OF INTERNET <br/> SUBSCRIPTIONS IN HOUSEHOLD"];
+           ACS--B28001_001-->B28001_001["Estimate!!Total: TYPES OF COMPUTERS IN HOUSEHOLD"];
            ACS--B28001_002-->B28001_002["Estimate!!Total:!!<br/>Has one or more types of computing devices:"];
+           ACS--B28002_001-->B28002_001["Estimate!!Total: PRESENCE AND TYPES OF INTERNET <br/> SUBSCRIPTIONS IN HOUSEHOLD"];
            ACS--B28002_004-->B28002_004["Estimate!!Total:!!<br/>With an Internet subscription!!Broadband of any type"];
            ACS--B28002_007-->B28002_007["Estimate!!Total:!!With an Internet subscription!!</br>Broadband such as cable, fiber optic or DSL"];
            ACS--B28002_013-->B28002_013["Estimate!!Total:!!No Internet access"];
+           ACS--B19013_001-->B19013_001["Estimate!!Total: MEDIAN HOUSEHOLD INCOME IN THE PAST 12 MONTHS <br/>(IN 2021 INFLATION-ADJUSTED DOLLARS)"];
+end
 
 %% Broadbandnow things:
+subgraph BBN_G["sdc.broadband.broadbandnow"]
+           Broadbandnow[<a href='https://broadbandnow.com/'>Broadbandnow</a>];
            query_year=2023-->Broadbandnow;
            Broadbandnow-->speed;
            Broadbandnow-->down_up;
-           Broadbandnow-->price;
            Broadbandnow-->name;
            Broadbandnow-->type;
            Broadbandnow-->address;
+           Broadbandnow-->price;
+end
 
 %% Ookla things:
+subgraph OOKLA_G["sdc.broadband.ookla"]
+           Ookla[<a href='https://www.ookla.com/ookla-for-good/open-data'>Ookla</a>];
            year=2022-->Ookla;
            Ookla-->avg_d_mbps;
            Ookla-->avg_u_mbps;
@@ -29,36 +44,119 @@ graph LR;
            Ookla-->devices;
            Ookla-->q;
            Ookla-->year;
+end
 
 %% Calculations
-           q --> dev((mean));
-           year --> dev((mean));
-           devices --> dev((mean));
-           q --> download((mean));
-           year --> download((mean));
-           avg_d_mbps --> download((mean));
-           q --> upload((mean));
-           year --> upload((mean));
-           avg_u_mbps --> upload((mean));
-           download((mean)) -- avg_down_using_devices --> markdown12["Average download speed weighted by number of devices"];
-           upload((mean)) -- avg_up_using_devices --> markdown11["Average upload speed weighted by number of devices"];
-           dev((mean)) -- devices --> markdown10;
-           markdown10["The number of unique devices accessing Ookla Internet speed tests"];
+           q -.-> dev((" "));
+           year -.-> dev;
+           devices --> dev;
+           q -.-> download((" "));
+           year -.-> download;
+           devices -.-> download;
+           avg_d_mbps --> download;
+           q -.-> upload((" "));
+           year -.-> upload;
+           devices -.-> upload;
+           %% step3_generalized.Rmd:  sum(upload_devices * devices, na.rm = T) / sum(devices, na.rm = T), (Why do we need this? Isn't it multiplying the sum of upload speed by 1
+           %% upon further inspection: above_20_up<-- pnorm(20, md_merged_data_up_devices$upload_devices, md_merged_data_up_devices$sd_county_up_devices, lower.tail = F) * 100 # a density distribution where mean is the upload devices, and standard deviation is equal to the sd_county_up_devices
+           %% perc_w_int_above_20_up_using_devices <-- above_20_up
+           avg_u_mbps --> upload;
+           download -- avg_down_using_devices --> avg_down_using_devices_node["<a style='color:#00FF00'>Average download speed weighted by number of devices</a>"];
+           upload -- avg_up_using_devices --> avg_up_using_devices_node["<a style='color:#00FF00'>Average upload speed weighted by number of devices</a>"];
+           dev -- devices --> devices_node["<a style='color:#00FF00'>The number of unique devices accessing Ookla Internet speed tests</a>"];
 
-           price --> perc_income_min_price_100((mean))
-           B19013_001 --> perc_income_min_price_100((mean))
-           perc_income_min_price_100((mean)) -- perc_income_min_price_100 -->markdown3["The minimum price for fast internet (100 MB/s upload)</br> as a percentage of median household income"];
+           price --> perc_income_min_price_100((" "))
+           B19013_001 --> perc_income_min_price_100;
+           speed -.-> perc_income_min_price_100;
+           down_up -.-> perc_income_min_price_100;
+
+           perc_income_min_price_100 -- perc_income_min_price_100 --> perc_income_min_price_100_node["<a style='color:#00FF00'>The minimum price for fast internet (100 MB/s upload)</br> as a percentage of median household income</a>"];
+           avg_nat -- perc_income_avg_nat_package -->perc_income_avg_nat_package_node["<a style='color:#FFA500'>The national average price for internet ($75)</br> as a percentage of median household income</a>"];
+           B28001_001 --> perc_hh_without_compdev_c;
+           B28001_002 --> perc_hh_without_compdev_c;
+           perc_hh_without_compdev_c(("(B28001_001-B28001_002)</br>/B28001_001*100"));
+           perc_hh_without_compdev_c -- perc_hh_without_compdev -->perc_hh_without_compdev_node["Percentage of the households self-reported</br> to not have a computer or device at home"];
+           B28002_004 --> perc_hh_with_broadband_c((B28002_004/B28002_001*100));
+           B28002_001 --> perc_hh_with_broadband_c;
+           perc_hh_with_broadband_c -- perc_hh_with_broadband --> perc_hh_with_broadband_node["Percentage of households self-reported to have a broadband internet connection. </br> Broadband internet is defined as any type of internet other than a dial-up"];
+
+           B19013_001 --> perc_income_min_price_25_c((" "));
+           price --> perc_income_min_price_25_c;
+           speed -.-> perc_income_min_price_25_c;
+           down_up -.-> perc_income_min_price_25_c;
+           perc_income_min_price_25_c -- perc_income_min_price_25 -->perc_income_min_price_25_node["<a style='color:#00FF00'>The minimum price for good internet (25 MB/s upload)</br> as a percentage of median household income</a>"];
+
+           %% On calculating perc_total_25_3_using_devices
+           %%           with_internet = B28002_001 - B28002_013
+           %%           The probability that 25 Mbps is greater than a randomly drawn value in the known samples, P[X>x], fitted to a normal distribution
+           %%           perc_w_int_above_25_down_using_devices <- pnorm(25, va_merged_data_down_tests$download_tests,va_merged_data_down_tests$sd_county_down_tests, lower.tail = F) * 100
+           %%           perc_w_int_above_25_down_using_devices = sum(pop_w_int_above_25_down_using_devices, na.rm = T) / sum(w_internet, na.rm = T), 
+           %%           perc_total_above_25_down_using_devices = perc_w_int_above_25_down_using_devices * w_internet/B28002_001
+
+           B28002_001 --> perc_w_int_100_20_using_devices_c(("mean of the min probabilities</br> of sum(pnorm(100, avg_d_mbps))</br>/sum(B28002_001-B28002_013)</br>*sum(B28002_001-B28002_013)??"));
+           B28002_013 --> perc_w_int_100_20_using_devices_c;
+           avg_d_mbps --> perc_w_int_100_20_using_devices_c;
+           perc_w_int_100_20_using_devices_c -- perc_w_int_100_20_using_devices --> perc_w_int_100_20_using_devices_node["Percent of the internet-connected population with a fast internet speed </br> (above 100 Mbps Download and  20 Mbps Upload, able to stream HD video on multiple devices or download large files quickly)"];
+
+subgraph OUTPUT_G["Outputs"]
+           avg_down_using_devices_node;
+           avg_up_using_devices_node;
+           devices_node;
+           perc_income_min_price_100_node;
+           perc_income_avg_nat_package_node;
+           perc_hh_without_compdev_node;
+           perc_hh_with_broadband_node;
+           perc_income_min_price_25_node;
+           perc_w_int_100_20_using_devices_node;
+           perc_total_100_20_using_devices_node;
+           perc_w_int_25_3_using_devices_node;
+           perc_total_25_3_using_devices_node;
+end
+
+subgraph LEGEND["Legend"]
+           completed["<a style='color:#00FF00'>Completed</a>"];
+           under_scrutiny["<a style='color:#FFA500'>Under Scrutiny</a>"];
+end
 
 %% Not yet complete
-           TBA -- perc_w_int_100_20_using_devices --> markdown9["Percent of the internet-connected population with a fast internet speed </br> (above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly)"];
-           TBA -- perc_total_100_20_using_devices --> markdown8["Percent of the total population with a fast internet speed </br>(above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly)"];
-           TBA -- perc_w_int_25_3_using_devices --> markdown7["Percent of the internet-connected population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
-           TBA -- perc_total_25_3_using_devices --> markdown6["Percent of the total population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
-           TBA -- perc_hh_without_compdev -->markdown5["Percentage of the households self-reported</br> to not have a computer or device at home"];
-           TBA -- perc_hh_with_broadband --> markdown4["Percentage of households self-reported to have a broadband internet connection. </br> Broadband internet is defined as any type of internet other than a dial-up"];
+           TBA -- perc_total_100_20_using_devices --> perc_total_100_20_using_devices_node["Percent of the total population with a fast internet speed </br>(above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly)"];
+           TBA -- perc_w_int_25_3_using_devices --> perc_w_int_25_3_using_devices_node["Percent of the internet-connected population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
+           TBA -- perc_total_25_3_using_devices --> perc_total_25_3_using_devices_node["Percent of the total population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
+```
 
-           TBA -- perc_income_min_price_25 -->markdown2["The minimum price for good internet (25 MB/s upload)</br> as a percentage of median household income"];
-           TBA -- perc_income_avg_nat_package -->markdown1["The national average price for internet ($64)</br> as a percentage of median household income"];
+## Methods for calculating measures
+
+### avg_up_using_devices
+```math
+\textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(u_{(g, q)} n_{(g,q)}})}{\sum_{q}\sum_{g}{n_{(g,q)}}}
+```
+where $u$ is the average upload speed for the geography $g$, quarter $q$, and $n$ is the number of devices.
+
+### devices
+```math
+\textbf{n} = \sum_{q}\sum_{g}{n_{(g,q)}}
+```
+where $n$ is the number of devices, $g$ the geography, and $q$ the quarter.
+
+### avg_down_using_devices
+```math
+\textbf{d} = \frac{\text{Total download speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(d_{(g, q)} n_{(g,q)}})}{\sum_{q}\sum_{g}{n_{(g,q)}}}
+```
+where $d$ is the average download speed for the geography $g$, quarter $q$, and $n$ is the number of devices.
+
+### perc_income_min_price_25
+```math
+\textbf{p} = \frac{\text{Percentage of income for lowest upload speed}\ge\text{25 Mbps price in geography }g}{\text{Total number of geographies}}* 100 = \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{upload}\ge 25\text{mbps}, g)})}{\text{B19013\_001}_g}}}{|\textbf{g}|}* 100
+```
+
+### perc_income_min_price_100
+```math
+\textbf{p} = \frac{\text{Percentage of income for lowest upload speed}\ge\text{100 Mbps price in geography }g}{\text{Total number of geographies}}*100=\\ \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{upload}\ge 100\text{mbps}, g)})}{\text{B19013\_001}_g}}}{|\textbf{g}|}*100
+```
+
+### perc_income_avg_nat_package
+```math
+\textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = 75 \frac{|\textbf{g}|}{\sum_g{\text{B19013\_001}_g}}*100
 ```
 
 ## Quickstart
