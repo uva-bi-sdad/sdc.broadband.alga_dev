@@ -28,7 +28,7 @@ def generate_higher_geo(df, geoid_length=11):
 
 
 def devices():
-    export_dir = "../data/distribution/Accessibility/Number of Devices/"
+    export_dir = "../data/Accessibility/Number of Devices/data/distribution"
     files = sorted(pathlib.Path(settings.OOKLA_DATA_DIR).glob("*.csv.xz"))
     pbar = tqdm(files)
     for file in pbar:
@@ -44,13 +44,14 @@ def devices():
             .to_frame()
             .reset_index()
         )
-        bg_df = devices_sum
-        bg_df["measure"] = MEASURE_NAME
-        bg_df["value"] = bg_df[MEASURE_NAME]
-        bg_df = bg_df.reindex(settings.STANDARD_COLS, axis="columns")
-        bg_df["region_type"] = "block_group"
+        bdf = devices_sum
+        bdf["measure"] = MEASURE_NAME
+        bdf["value"] = bdf[MEASURE_NAME]
+        bdf = bdf.reindex(settings.STANDARD_COLS, axis="columns")
+        bdf["region_type"] = "block"
 
         # Generating summaries at a census tract level
+        bg_df = generate_higher_geo(df, 12)
         ct_df = generate_higher_geo(df, 11)
         c_df = generate_higher_geo(df, 5)
 
