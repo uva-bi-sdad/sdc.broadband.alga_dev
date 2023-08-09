@@ -39,7 +39,4 @@ COUNTIES_TO_FOCUS = [
     "13063",
 ]
 
-FIPS_LENGTH_DESIGNATION = {
-    5: "county",
-    11: "census_tract",
-}
+FIPS_LENGTH_DESIGNATION = {5: "county", 11: "tract", 12: "block group"}

@@ -27,7 +27,6 @@ check_repository(dataset = structure(entities$region_type, names = entities$geoi
 ## unify original files
 datasets <- "data/Accessibility/Average Download Speed/data/distribution"
 
-
 data_reformat_sdad(
   datasets, "docs/data", metadata = entities,
   entity_info = NULL, overwrite=TRUE
@@ -60,9 +59,9 @@ if (!length(map_files)) {
   ids <- unique(unlist(lapply(files, function(f) {
     unique(vroom::vroom(f, col_select = "ID", show_col_types = FALSE)[[1]])
   })))
-  # states <- unique(substring(ids[
-  #   ids %in% entities$geoid[entities$region_type %in% c("county", "tract", "block group")]
-  # ], 1, 2))
+  states <- unique(substring(ids[
+    ids %in% entities$geoid[entities$region_type %in% c("county", "tract", "block group")]
+  ], 1, 2))
   states <- unique(substring(ids,1,2))
   years <- as.numeric(unique(unlist(lapply(files, function(f) {
     unique(vroom::vroom(f, col_select = "time", show_col_types = FALSE)[[1]])

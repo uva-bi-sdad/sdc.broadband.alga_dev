@@ -25,14 +25,6 @@
     "tracking": false,
     "show_empty_times": false
   },
-  "metadata": {
-    "url": "",
-    "package": "data/datapackage.json",
-    "datasets": [
-      "block_group"
-    ],
-    "files": "block_group.csv.xz"
-  },
   "variables": [
     {
       "id": "shapes",
@@ -495,5 +487,11 @@
         "display": "sec32"
       }
     }
-  ]
+  ],
+  "metadata": {
+    "url": "",
+    "package": "data/datapackage.json",
+    "datasets": ["block_group", "tract", "county"],
+    "files": ["block_group.csv.xz", "tract.csv.xz", "county.csv.xz"]
+  }
 }
