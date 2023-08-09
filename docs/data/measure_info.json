@@ -4,7 +4,7 @@
     "full_name": "avg_down_using_devices",
     "short_name": "Average Download Speed",
     "long_name": "Average Download Speed",
-    "short_description": "Average download speed weighted by number of devices for 2022.",
+    "short_description": "Average download speed in Mbps weighted by number of devices for 2022.",
     "statement": "The average download speed is {value} in {features.name}.",
     "type": "internet speed",
     "equity_category": "Availability",
@@ -18,5 +18,25 @@
     "unit": "",
     "data_type": "numeric",
     "measure_type": "speed"
+  },
+  "avg_up_using_devices": {
+    "category": "Broadband",
+    "full_name": "avg_up_using_devices",
+    "short_name": "Average Upload Speed",
+    "long_name": "Average Upload Speed",
+    "short_description": "Average upload speed in Mbps weighted by number of devices for 2022.",
+    "statement": "The average upload speed is {value} in {features.name}.",
+    "type": "internet speed",
+    "equity_category": "Availability",
+    "sources": [
+      {
+        "name": "Ookla",
+        "date_accessed": 2023,
+        "url": "https://www.ookla.com/ookla-for-good/open-data"
+      }
+    ],
+    "unit": "",
+    "data_type": "numeric",
+    "measure_type": "mean"
   }
 }
