@@ -33,6 +33,9 @@ def avg_up_using_devices():
     files = sorted(pathlib.Path(settings.OOKLA_DATA_DIR).glob("*.csv.xz"))
     pbar = tqdm(files)
     for file in pbar:
+        # Skip non-related counties
+        if not file.name[:5] in settings.COUNTIES_TO_FOCUS:
+            continue
         df = pd.read_csv(file, dtype={"GEOID20": object})
         # Filter out empty and invalid rows
         df = df[(df["avg_u_mbps"] >= 0) & (df["avg_u_mbps"].notnull())].copy()

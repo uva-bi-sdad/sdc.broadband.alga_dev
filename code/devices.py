@@ -32,6 +32,9 @@ def devices():
     files = sorted(pathlib.Path(settings.OOKLA_DATA_DIR).glob("*.csv.xz"))
     pbar = tqdm(files)
     for file in pbar:
+        # Skip non-related counties
+        if not file.name[:5] in settings.COUNTIES_TO_FOCUS:
+            continue
         df = pd.read_csv(file, dtype={"GEOID20": object})
         # Filter out empty and invalid rows
         df = df[(df[MEASURE_NAME] >= 0) & (df[MEASURE_NAME].notnull())].copy()

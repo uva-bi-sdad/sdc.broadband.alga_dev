@@ -1,6 +1,9 @@
 "","metadata","block_group","county","tract"
 "avg_down_using_devices",1,4322,18,1621
-"avg_up_using_devices",1,88244,18,1621
+"avg_up_using_devices",1,4322,18,1621
 "devices",1,4322,18,1621
-"ID",0,92566,18,1621
-"time",0,92566,18,1621
+"ID",0,8644,36,3242
+"perc_income_avg_nat_package",1,3931,18,1602
+"perc_income_min_price_100",1,3419,18,1543
+"perc_income_min_price_25",1,3885,18,1594
+"time",0,8644,36,3242
