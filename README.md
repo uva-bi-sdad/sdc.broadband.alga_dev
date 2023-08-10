@@ -166,7 +166,7 @@ where $d$ is the average download speed for the geography $g$, quarter $q$, and 
 
 ### perc_hh_with_broadband
 ```math
-\textbf{p} = \frac{\text{Total with an Internet subscription Broadband of any type}}{\text{Total presence and types of internet subscriptions in household}}* 100 = \frac{\sum_{g}{\frac{\text{B28002\_004}_g}{\text{B28002\_001}_g}}}{|\textbf{g}|}*100
+\textbf{p} = \frac{\text{Total with an internet subscription Broadband of any type}}{\text{Total presence and types of internet subscriptions in household}}* 100 = \frac{\sum_{g}{\frac{\text{B28002\_004}_g}{\text{B28002\_001}_g}}}{|\textbf{g}|}*100
 ```
 
 ## Quickstart
