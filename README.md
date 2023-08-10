@@ -71,7 +71,7 @@ end
            down_up -.-> perc_income_min_price_100;
 
            perc_income_min_price_100 -- perc_income_min_price_100 --> perc_income_min_price_100_node["<a style='color:#00FF00'>The minimum price for fast internet (100 MB/s upload)</br> as a percentage of median household income</a>"];
-           avg_nat -- perc_income_avg_nat_package -->perc_income_avg_nat_package_node["<a style='color:#FFA500'>The national average price for internet ($75)</br> as a percentage of median household income</a>"];
+           avg_nat -- perc_income_avg_nat_package -->perc_income_avg_nat_package_node["<a style='color:#00FF00'>The national average price for internet ($75)</br> as a percentage of median household income</a>"];
            B28001_001 --> perc_hh_without_compdev_c;
            B28001_002 --> perc_hh_without_compdev_c;
            perc_hh_without_compdev_c((" "));
@@ -115,7 +115,7 @@ end
 
 subgraph LEGEND["Legend"]
            completed["<a style='color:#00FF00'>Completed</a>"];
-           under_scrutiny["<a style='color:#FFA500'>Under Scrutiny</a>"];
+           %% under_scrutiny["<a style='color:#FFA500'>Under Scrutiny</a>"];
 end
 
 %% Not yet complete
