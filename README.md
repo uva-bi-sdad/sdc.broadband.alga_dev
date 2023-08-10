@@ -74,11 +74,11 @@ end
            avg_nat -- perc_income_avg_nat_package -->perc_income_avg_nat_package_node["<a style='color:#FFA500'>The national average price for internet ($75)</br> as a percentage of median household income</a>"];
            B28001_001 --> perc_hh_without_compdev_c;
            B28001_002 --> perc_hh_without_compdev_c;
-           perc_hh_without_compdev_c(("(B28001_001-B28001_002)</br>/B28001_001*100"));
-           perc_hh_without_compdev_c -- perc_hh_without_compdev -->perc_hh_without_compdev_node["Percentage of the households self-reported</br> to not have a computer or device at home"];
-           B28002_004 --> perc_hh_with_broadband_c((B28002_004/B28002_001*100));
+           perc_hh_without_compdev_c((" "));
+           perc_hh_without_compdev_c -- perc_hh_without_compdev -->perc_hh_without_compdev_node["<a style='color:#00FF00'>Percentage of the households self-reported</br> to not have a computer or device at home</a>"];
+           B28002_004 --> perc_hh_with_broadband_c((" "));
            B28002_001 --> perc_hh_with_broadband_c;
-           perc_hh_with_broadband_c -- perc_hh_with_broadband --> perc_hh_with_broadband_node["Percentage of households self-reported to have a broadband internet connection. </br> Broadband internet is defined as any type of internet other than a dial-up"];
+           perc_hh_with_broadband_c -- perc_hh_with_broadband --> perc_hh_with_broadband_node["<a style='color:#00FF00'>Percentage of households self-reported to have a broadband internet connection. </br> Broadband internet is defined as any type of internet other than a dial-up</a>"];
 
            B19013_001 --> perc_income_min_price_25_c((" "));
            price --> perc_income_min_price_25_c;
@@ -157,6 +157,16 @@ where $d$ is the average download speed for the geography $g$, quarter $q$, and 
 ### perc_income_avg_nat_package
 ```math
 \textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = 75*12 \frac{|\textbf{g}|}{\sum_g{\text{B19013\_001}_g}}*100
+```
+
+### perc_hh_without_compdev
+```math
+\textbf{p} = \frac{\text{Total types of computers in household} - \text{Has one or more types of computing devices}}{\text{Total types of computers in household}}* 100 = \frac{\sum_{g}{\frac{(\text{B28001\_001}_g-\text{B28001\_002}_g)}{\text{B28001\_001}_g}}}{|\textbf{g}|}*100
+```
+
+### perc_hh_with_broadband
+```math
+\textbf{p} = \frac{\text{Total with an Internet subscription Broadband of any type}}{\text{Total presence and types of internet subscriptions in household}}* 100 = \frac{\sum_{g}{\frac{\text{B28002\_004}_g}{\text{B28002\_001}_g}}}{|\textbf{g}|}*100
 ```
 
 ## Quickstart
