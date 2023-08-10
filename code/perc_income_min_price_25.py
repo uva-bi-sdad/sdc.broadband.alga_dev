@@ -49,7 +49,7 @@ def perc_income_min_price_25():
             lambda x: int(x.split(" Mbps")[0])
         )
         bbn_df_u_25 = bbn_df[
-            (bbn_df["down_up"] == "Upload") & (bbn_df["speed_value"] >= 25)
+            (bbn_df["down_up"] == "Download") & (bbn_df["speed_value"] >= 25)
         ]
         bdf = (
             bbn_df_u_25.groupby(["geoid", "year_parsed"])["price"]
