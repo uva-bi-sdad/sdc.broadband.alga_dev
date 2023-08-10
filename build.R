@@ -29,7 +29,18 @@ devices <- Sys.glob("data/Accessibility/Number of Devices/data/distribution/*.cs
 perc_income_min_price_25 <- Sys.glob("data/Affordability/Percentage of income for good internet/data/distribution/*.csv.xz")
 perc_income_min_price_100 <- Sys.glob("data/Affordability/Percentage of income for fast internet/data/distribution/*.csv.xz")
 perc_income_avg_nat_package <- Sys.glob("data/Affordability/Percentage of income for internet (average)/data/distribution/*.csv.xz")
-datasets <- c(avg_down_using_devices, avg_up_using_devices, devices, perc_income_min_price_25,perc_income_min_price_100,perc_income_avg_nat_package)
+perc_hh_without_compdev <- Sys.glob("data/Adoption/Households without a computer/data/distribution/*.csv.xz")
+perc_hh_with_broadband <- Sys.glob("data/Adoption/Households with broadband/data/distribution/*.csv.xz")
+datasets <- c(
+  avg_down_using_devices, 
+  avg_up_using_devices, 
+  devices, 
+  perc_income_min_price_25,
+  perc_income_min_price_100,
+  perc_income_avg_nat_package,
+  perc_hh_without_compdev,
+  perc_hh_with_broadband
+)
 
 data_reformat_sdad(
   datasets, "docs/data", metadata = entities,

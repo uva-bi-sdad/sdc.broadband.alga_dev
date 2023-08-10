@@ -233,9 +233,9 @@
   "perc_income_min_price_100": {
     "category": "Broadband",
     "short_name": "Percentage of income for fast internet",
-    "long_name": "The minimum price for fast internet (100 MB/s upload) as a percentage of median household income",
-    "short_description": "The minimum price for fast internet (100 MB/s upload) as a percent of median household income",
-    "long_description": "The minimum price for fast internet (100 MB/s upload) as a percentage of median household income.",
+    "long_name": "The minimum price for fast internet (100 MB/s download) as a percentage of median household income",
+    "short_description": "The minimum price for fast internet (100 MB/s download) as a percent of median household income",
+    "long_description": "The minimum price for fast internet (100 MB/s download) as a percentage of median household income.",
     "statement": "Fast internet costs {value} of the median household income in {features.name}.",
     "equity_category": "Affordability",
     "sources": [
@@ -259,9 +259,9 @@
     "full_name": "perc_income_min_price_25",
     "type": "percent",
     "short_name": "Percentage of income for good internet",
-    "long_name": "The minimum price for good internet (25 MB/s upload) as a percentage of median household income",
-    "short_description": "The minimum price for good internet (25 MB/s upload) as a percentage of median household income",
-    "long_description": "The minimum price for good internet (25 MB/s upload) as a percentage of median household income.",
+    "long_name": "The minimum price for good internet (25 MB/s download) as a percentage of median household income",
+    "short_description": "The minimum price for good internet (25 MB/s download) as a percentage of median household income",
+    "long_description": "The minimum price for good internet (25 MB/s download) as a percentage of median household income.",
     "statement": "Good internet costs {value} of the median household income in {features.name}.",
     "equity_category": "Affordability",
     "sources": [
