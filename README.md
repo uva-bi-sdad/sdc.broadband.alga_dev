@@ -71,14 +71,14 @@ end
            down_up -.-> perc_income_min_price_100;
 
            perc_income_min_price_100 -- perc_income_min_price_100 --> perc_income_min_price_100_node["<a style='color:#00FF00'>The minimum price for fast internet (100 MB/s upload)</br> as a percentage of median household income</a>"];
-           avg_nat -- perc_income_avg_nat_package -->perc_income_avg_nat_package_node["<a style='color:#FFA500'>The national average price for internet ($75)</br> as a percentage of median household income</a>"];
+           avg_nat -- perc_income_avg_nat_package -->perc_income_avg_nat_package_node["<a style='color:#00FF00'>The national average price for internet ($75)</br> as a percentage of median household income</a>"];
            B28001_001 --> perc_hh_without_compdev_c;
            B28001_002 --> perc_hh_without_compdev_c;
-           perc_hh_without_compdev_c(("(B28001_001-B28001_002)</br>/B28001_001*100"));
-           perc_hh_without_compdev_c -- perc_hh_without_compdev -->perc_hh_without_compdev_node["Percentage of the households self-reported</br> to not have a computer or device at home"];
-           B28002_004 --> perc_hh_with_broadband_c((B28002_004/B28002_001*100));
+           perc_hh_without_compdev_c((" "));
+           perc_hh_without_compdev_c -- perc_hh_without_compdev -->perc_hh_without_compdev_node["<a style='color:#00FF00'>Percentage of the households self-reported</br> to not have a computer or device at home</a>"];
+           B28002_004 --> perc_hh_with_broadband_c((" "));
            B28002_001 --> perc_hh_with_broadband_c;
-           perc_hh_with_broadband_c -- perc_hh_with_broadband --> perc_hh_with_broadband_node["Percentage of households self-reported to have a broadband internet connection. </br> Broadband internet is defined as any type of internet other than a dial-up"];
+           perc_hh_with_broadband_c -- perc_hh_with_broadband --> perc_hh_with_broadband_node["<a style='color:#00FF00'>Percentage of households self-reported to have a broadband internet connection. </br> Broadband internet is defined as any type of internet other than a dial-up</a>"];
 
            B19013_001 --> perc_income_min_price_25_c((" "));
            price --> perc_income_min_price_25_c;
@@ -93,7 +93,7 @@ end
            %%           perc_w_int_above_25_down_using_devices = sum(pop_w_int_above_25_down_using_devices, na.rm = T) / sum(w_internet, na.rm = T), 
            %%           perc_total_above_25_down_using_devices = perc_w_int_above_25_down_using_devices * w_internet/B28002_001
 
-           B28002_001 --> perc_w_int_100_20_using_devices_c(("mean of the min probabilities</br> of sum(pnorm(100, avg_d_mbps))</br>/sum(B28002_001-B28002_013)</br>*sum(B28002_001-B28002_013)??"));
+           B28002_001 --> perc_w_int_100_20_using_devices_c((" "));
            B28002_013 --> perc_w_int_100_20_using_devices_c;
            avg_d_mbps --> perc_w_int_100_20_using_devices_c;
            perc_w_int_100_20_using_devices_c -- perc_w_int_100_20_using_devices --> perc_w_int_100_20_using_devices_node["Percent of the internet-connected population with a fast internet speed </br> (above 100 Mbps Download and  20 Mbps Upload, able to stream HD video on multiple devices or download large files quickly)"];
@@ -115,7 +115,7 @@ end
 
 subgraph LEGEND["Legend"]
            completed["<a style='color:#00FF00'>Completed</a>"];
-           under_scrutiny["<a style='color:#FFA500'>Under Scrutiny</a>"];
+           %% under_scrutiny["<a style='color:#FFA500'>Under Scrutiny</a>"];
 end
 
 %% Not yet complete
@@ -126,42 +126,59 @@ end
 
 ## Methods for calculating measures
 
+For the following measures, the geography is represented by $g$, the quarter of the year in $q$. Sometimes, $\text{BBN}$ is an acronym for $\text{Broadbandnow}$.
+
 ### avg_up_using_devices
 ```math
-\textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(u_{(g, q)} n_{(g,q)}})}{\sum_{q}\sum_{g}{n_{(g,q)}}}
+\textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = \frac{\frac{\sum_{q}\sum_{g}{(\text{Ookla}_{\text{upload},(g, q)}\text{Ookla}_{\text{number of devices},(g, q)})}}{\sum_{q}\sum_{g}{\text{Ookla}_{\text{number of devices},(g, q)}}}}{|\textbf{g}|}
 ```
-where $u$ is the average upload speed for the geography $g$, quarter $q$, and $n$ is the number of devices.
 
 ### devices
 ```math
-\textbf{n} = \sum_{q}\sum_{g}{n_{(g,q)}}
+\textbf{n} = \sum_{q}\sum_{g}{\text{Ookla}_{\text{number of devices},(g, q)}}
 ```
-where $n$ is the number of devices, $g$ the geography, and $q$ the quarter.
 
 ### avg_down_using_devices
 ```math
-\textbf{d} = \frac{\text{Total download speed of all devices}}{\text{Total number of devices}} = \frac{\sum_{q}\sum_{g}{(d_{(g, q)} n_{(g,q)}})}{\sum_{q}\sum_{g}{n_{(g,q)}}}
+\textbf{d} = \frac{\text{Total download speed of all devices}}{\text{Total number of devices}} = \frac{\frac{\sum_{q}\sum_{g}{(\text{Ookla}_{\text{download,(g, q)}}\text{Ookla}_{\text{number of devices},(g, q)}})}{\sum_{q}\sum_{g}{\text{Ookla}_{\text{number of devices},(g, q)}}}}{|\textbf{g}|}
 ```
-where $d$ is the average download speed for the geography $g$, quarter $q$, and $n$ is the number of devices.
 
 ### perc_income_min_price_25
 ```math
-\textbf{p} = \frac{\text{Percentage of income for lowest upload speed}\ge\text{25 Mbps price in geography }g}{\text{Total number of geographies}}* 100 = \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{upload}\ge 25\text{mbps}, g)})}{\text{B19013\_001}_g}}}{|\textbf{g}|}* 100
+\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{25 Mbps price}}{\text{Total number of geographies}}* 100 = \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 25\text{mbps}, g)})*12}{\text{B19013\_001}_g}}}{|\textbf{g}|}* 100
 ```
 
 ### perc_income_min_price_100
 ```math
-\textbf{p} = \frac{\text{Percentage of income for lowest upload speed}\ge\text{100 Mbps price in geography }g}{\text{Total number of geographies}}*100=\\ \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{upload}\ge 100\text{mbps}, g)})}{\text{B19013\_001}_g}}}{|\textbf{g}|}*100
+\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{100 Mbps price}}{\text{Total number of geographies}}*100=\\ \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 100\text{mbps}, g)})*12}{\text{B19013\_001}_g}}}{|\textbf{g}|}*100
 ```
 
 ### perc_income_avg_nat_package
 ```math
-\textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = 75 \frac{|\textbf{g}|}{\sum_g{\text{B19013\_001}_g}}*100
+\textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = 75*12 \frac{|\textbf{g}|}{\sum_g{\text{B19013\_001}_g}}*100
 ```
+
+### perc_hh_without_compdev
+```math
+\textbf{p} = \frac{\text{Total types of computers in household} - \text{Has one or more types of computing devices}}{\text{Total types of computers in household}}* 100 = \frac{\sum_{g}{\frac{(\text{B28001\_001}_g-\text{B28001\_002}_g)}{\text{B28001\_001}_g}}}{|\textbf{g}|}*100
+```
+
+### perc_hh_with_broadband
+```math
+\textbf{p} = \frac{\text{Total with an internet subscription Broadband of any type}}{\text{Total presence and types of internet subscriptions in household}}* 100 = \frac{\sum_{g}{\frac{\text{B28002\_004}_g}{\text{B28002\_001}_g}}}{|\textbf{g}|}*100
+```
+
+### perc_w_int_100_20_using_devices
+```math
+\textbf{p} = \frac{\text{Probability that the geography has }\ge \text{100 Mbps download speed and} \ge \text{20 Mbps upload speed}}{\text{Total internet-connected population}}* 100  = \frac{\sum_{g}\frac{P[\text{BBN}_{\text{download}, g} \ge 100]*P[\text{BBN}_{\text{upload}, g} \ge 20]* (\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_g - \text{B28002\_013}_g)}}{|\textbf{g}|} * 100
+```
+
+### perc_w_int_25_3_using_devices
 
 ## Quickstart
 - `git submodule update --recursive --remote` to download the submodules
-- Run things in the `code` directory to generate the required datasets
+- Run `python prepare_broadband_dataset.py` to generate the dataset
+- Run `build.R` to generate the dashboard
 
 ## Example Data Output
 ```python
