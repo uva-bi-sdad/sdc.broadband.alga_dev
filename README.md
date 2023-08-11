@@ -126,7 +126,7 @@ end
 
 ## Methods for calculating measures
 
-For the following measures, the geography is represented by $g$, the quarter of the year in $q$. Sometimes, $\text{BBN}$ is an acronym for $\text{Broadbandnow}$.
+For the following measures, the geography is represented by $g$, the quarter of the year in $q$.
 
 ### avg_up_using_devices
 ```math
@@ -170,7 +170,7 @@ For the following measures, the geography is represented by $g$, the quarter of 
 
 ### perc_w_int_100_20_using_devices
 ```math
-\textbf{p} = \frac{\text{Probability that the geography has }\ge \text{100 Mbps download speed and} \ge \text{20 Mbps upload speed}}{\text{Total internet-connected population}}* 100  = \frac{\sum_{g}\frac{P[\text{BBN}_{\text{download}, g} \ge 100]*P[\text{BBN}_{\text{upload}, g} \ge 20]* (\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_g - \text{B28002\_013}_g)}}{|\textbf{g}|} * 100
+\textbf{p} = \frac{\text{Probability that the geography has }\ge \text{100 Mbps download speed and} \ge \text{20 Mbps upload speed}}{\text{Total internet-connected population}}* 100  = \frac{\sum_{g}\frac{P[\text{Ookla}_{\text{download}, g} \ge 100]*P[\text{OOkla}_{\text{upload}, g} \ge 20]* (\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_g - \text{B28002\_013}_g)}}{|\textbf{g}|} * 100
 ```
 
 ### perc_w_int_25_3_using_devices
