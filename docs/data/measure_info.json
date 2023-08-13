@@ -150,8 +150,8 @@
     "short_name": "Households with broadband",
     "long_name": "Percentage of households with broadband",
     "short_description": "Percentage of households self-reported to have a broadband internet connection (any type of internet other than a dial-up)",
-    "long_description": "Percentage of households self-reported to have a broadband internet connection. Broadband internet is defined as any type of internet other than a dial-up. Based on American Community Survey Table B28002 in ACS 2015/2019 5-year estimates.",
-    "statement": "{value} of households in {features.name} have a broadband connection.",
+    "long_description": "Percentage of households self-reported to have a broadband internet connection. Broadband internet is defined as any type of internet other than a dial-up. Based on American Community Survey Table B28002 in ACS 2021 estimates.",
+    "statement": "{value} of households in {features.name} have a broadband connection. $$\textbf{p} = \frac{\text{Total with an internet subscription Broadband of any type}}{\text{Total presence and types of internet subscriptions in household}}* 100 = \frac{sum_{g}{\frac{\text{B28002_004}_g}{\text{B28002_001}_g}}}{|\textbf{g}|}*100$$",
     "equity_category": "Availability",
     "sources": [
       {
