@@ -130,7 +130,7 @@ For the following measures, the geography is represented by $g$; the geography a
 
 ### avg_up_using_devices
 ```math
-\textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = {\frac{\sum_{g}\text{Ookla}_{\text{upload},g}*\text{Ookla}_{\text{number of devices},g}}{\text{Ookla}_{\text{number of devices},\textbf{g}}}}
+\textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = {\frac{\sum_{g}\text{Ookla}_{\text{upload},g}*\text{Ookla}_{\text{number of devices},g}}{\sum_g\text{Ookla}_{\text{number of devices},g}}}
 ```
 
 ### devices
@@ -141,54 +141,54 @@ n = \sum_{g}{\text{Ookla}_{\text{number of devices},g}}
 ### avg_down_using_devices
 ```math
 \textbf{d} = \frac{\text{Total download speed of all devices}}{\text{Total number of devices}} =
-{\frac{\sum_{g}\text{Ookla}_{\text{download},g}*\text{Ookla}_{\text{number of devices},g}}{\text{Ookla}_{\text{number of devices},\textbf{g}}}}
+{\frac{\sum_{g}\text{Ookla}_{\text{download},g}*\text{Ookla}_{\text{number of devices},g}}{\sum_g\text{Ookla}_{\text{number of devices},g}}}
 ```
 
 ### perc_income_min_price_25
 ```math
-\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{25 Mbps price}}{\text{Total number of geographies}}* 100 =
-\prod_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 25\text{mbps}, g)})*12}{\text{B19013\_001}_g}} * 100
+\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{25 Mbps price}}{\text{Median household income}}* 100 =
+\frac{1}{|\textbf{g}|}\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 25\text{mbps}, g)})*12}{\text{B19013\_001}_g}} * 100
 ```
 
 ### perc_income_min_price_100
 ```math
-\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{100 Mbps price}}{\text{Total number of geographies}}*100=
-\prod_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 100\text{mbps}, g)})*12}{\text{B19013\_001}_g}} * 100
+\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{100 Mbps price}}{\text{Median household income}}*100=
+\frac{1}{|\textbf{g}|}\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 100\text{mbps}, g)})*12}{\text{B19013\_001}_g}} * 100
 ```
 
 ### perc_income_avg_nat_package
 ```math
-\textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = \prod_{g}{\frac{75*12}{\text{B19013\_001}_g}} * 100
+\textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = \frac{1}{|\textbf{g}|}\sum_{g}{\frac{75*12}{\text{B19013\_001}_g}} * 100
 ```
 
 ### perc_hh_without_compdev
 ```math
 \textbf{p} = \frac{\text{Total types of computers in household} - \text{Has one or more types of computing devices}}{\text{Total types of computers in household}}* 100 =
 
-\prod_{g}{\frac{(\text{B28001\_001}_g-\text{B28001\_002}_g)}
-{\text{B28001\_001}_g}} * 100
+\frac{\sum_g(\text{B28001\_001}_g-\text{B28001\_002}_g)}
+{\sum_g\text{B28001\_001}_g} * 100
 ```
 
 ### perc_hh_with_broadband
 ```math
 \textbf{p} = \frac{\text{Total with an internet subscription Broadband of any type}}{\text{Total presence and types of internet subscriptions in household}}* 100 =
 
-\prod_{g}{\frac{\text{B28002\_004}_g}
-{\text{B28002\_001}_g}} * 100
+\frac{\sum_g\text{B28002\_004}_g}
+{\sum_g\text{B28002\_001}_g} * 100
 ```
 
 ### perc_w_int_100_20_using_devices
 ```math
 \textbf{p} = \text{Probability}_{g \ge \text{100 Mbps download speed}} *  \text{Probability}_{g \ge \text{20 Mbps upload speed}} * \frac{\text{Total internet-connected population}_g}{\text{Total internet-connected population}_{\textbf{g}}}* 100  =
 
-\prod_{g}\frac{P[\text{Ookla}_{\text{download}, g} \ge 100]*P[\text{OOkla}_{\text{upload}, g} \ge 20](\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_\textbf{g} - \text{B28002\_013}_\textbf{g})} * 100
+\sum_{g}\frac{P[\text{Ookla}_{\text{download}, g} \ge 100]*P[\text{OOkla}_{\text{upload}, g} \ge 20](\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_\textbf{g} - \text{B28002\_013}_\textbf{g})} * 100
 ```
 
 ### perc_w_int_25_3_using_devices
 ```math
 \textbf{p} = \text{Probability}_{g \ge \text{25 Mbps download speed}} *  \text{Probability}_{g \ge \text{3 Mbps upload speed}} * \frac{\text{Total internet-connected population}_g}{\text{Total internet-connected population}_{\textbf{g}}}* 100  =
 
-\prod_{g}\frac{P[\text{Ookla}_{\text{download}, g} \ge 25]*P[\text{OOkla}_{\text{upload}, g} \ge 3](\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_\textbf{g} - \text{B28002\_013}_\textbf{g})} * 100
+\sum_{g}\frac{P[\text{Ookla}_{\text{download}, g} \ge 25]*P[\text{OOkla}_{\text{upload}, g} \ge 3](\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_\textbf{g} - \text{B28002\_013}_\textbf{g})} * 100
 ```
 
 
