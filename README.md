@@ -126,7 +126,7 @@ end
 
 ## Methods for calculating measures
 
-For the following measures, the geography is represented by $g$; the geography at a higher highest summary level is represented by $\textbf{g}$. At the lowest geography level, they are equivalent.
+For the following measures, geography is represented by $g$.
 
 ### avg_up_using_devices
 ```math
