@@ -195,7 +195,7 @@ n = \sum_{g}{\text{Ookla}_{\text{number of devices},g}}
 ## Quickstart
 - `git submodule update --recursive --remote` to download the submodules
 - Run `python prepare_broadband_dataset.py` to generate the dataset
-- Run `build.R` to generate the dashboard
+- Run `Rscript build.R` to generate the dashboard
 
 ## Example Data Output
 ```python
