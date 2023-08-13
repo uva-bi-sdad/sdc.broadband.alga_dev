@@ -126,54 +126,71 @@ end
 
 ## Methods for calculating measures
 
-For the following measures, the geography is represented by $g$, the quarter of the year in $q$.
+For the following measures, the geography is represented by $g$; the geography at a higher highest summary level is represented by $\textbf{g}$. At the lowest geography level, they are equivalent.
 
 ### avg_up_using_devices
 ```math
-\textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = \frac{\frac{\sum_{q}\sum_{g}{(\text{Ookla}_{\text{upload},(g, q)}\text{Ookla}_{\text{number of devices},(g, q)})}}{\sum_{q}\sum_{g}{\text{Ookla}_{\text{number of devices},(g, q)}}}}{|\textbf{g}|}
+\textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = {\frac{\sum_{g}\text{Ookla}_{\text{upload},g}*\text{Ookla}_{\text{number of devices},g}}{\text{Ookla}_{\text{number of devices},\textbf{g}}}}
 ```
 
 ### devices
 ```math
-\textbf{n} = \sum_{q}\sum_{g}{\text{Ookla}_{\text{number of devices},(g, q)}}
+n = \sum_{g}{\text{Ookla}_{\text{number of devices},g}}
 ```
 
 ### avg_down_using_devices
 ```math
-\textbf{d} = \frac{\text{Total download speed of all devices}}{\text{Total number of devices}} = \frac{\frac{\sum_{q}\sum_{g}{(\text{Ookla}_{\text{download,(g, q)}}\text{Ookla}_{\text{number of devices},(g, q)}})}{\sum_{q}\sum_{g}{\text{Ookla}_{\text{number of devices},(g, q)}}}}{|\textbf{g}|}
+\textbf{d} = \frac{\text{Total download speed of all devices}}{\text{Total number of devices}} =
+{\frac{\sum_{g}\text{Ookla}_{\text{download},g}*\text{Ookla}_{\text{number of devices},g}}{\text{Ookla}_{\text{number of devices},\textbf{g}}}}
 ```
 
 ### perc_income_min_price_25
 ```math
-\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{25 Mbps price}}{\text{Total number of geographies}}* 100 = \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 25\text{mbps}, g)})*12}{\text{B19013\_001}_g}}}{|\textbf{g}|}* 100
+\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{25 Mbps price}}{\text{Total number of geographies}}* 100 =
+\prod_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 25\text{mbps}, g)})*12}{\text{B19013\_001}_g}} * 100
 ```
 
 ### perc_income_min_price_100
 ```math
-\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{100 Mbps price}}{\text{Total number of geographies}}*100=\\ \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 100\text{mbps}, g)})*12}{\text{B19013\_001}_g}}}{|\textbf{g}|}*100
+\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{100 Mbps price}}{\text{Total number of geographies}}*100=
+\prod_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 100\text{mbps}, g)})*12}{\text{B19013\_001}_g}} * 100
 ```
 
 ### perc_income_avg_nat_package
 ```math
-\textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = 75*12 \frac{|\textbf{g}|}{\sum_g{\text{B19013\_001}_g}}*100
+\textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = \prod_{g}{\frac{75*12}{\text{B19013\_001}_g}} * 100
 ```
 
 ### perc_hh_without_compdev
 ```math
-\textbf{p} = \frac{\text{Total types of computers in household} - \text{Has one or more types of computing devices}}{\text{Total types of computers in household}}* 100 = \frac{\sum_{g}{\frac{(\text{B28001\_001}_g-\text{B28001\_002}_g)}{\text{B28001\_001}_g}}}{|\textbf{g}|}*100
+\textbf{p} = \frac{\text{Total types of computers in household} - \text{Has one or more types of computing devices}}{\text{Total types of computers in household}}* 100 =
+
+\prod_{g}{\frac{(\text{B28001\_001}_g-\text{B28001\_002}_g)}
+{\text{B28001\_001}_g}} * 100
 ```
 
 ### perc_hh_with_broadband
 ```math
-\textbf{p} = \frac{\text{Total with an internet subscription Broadband of any type}}{\text{Total presence and types of internet subscriptions in household}}* 100 = \frac{\sum_{g}{\frac{\text{B28002\_004}_g}{\text{B28002\_001}_g}}}{|\textbf{g}|}*100
+\textbf{p} = \frac{\text{Total with an internet subscription Broadband of any type}}{\text{Total presence and types of internet subscriptions in household}}* 100 =
+
+\prod_{g}{\frac{\text{B28002\_004}_g}
+{\text{B28002\_001}_g}} * 100
 ```
 
 ### perc_w_int_100_20_using_devices
 ```math
-\textbf{p} = \frac{\text{Probability that the geography has }\ge \text{100 Mbps download speed and} \ge \text{20 Mbps upload speed}}{\text{Total internet-connected population}}* 100  = \frac{\sum_{g}\frac{P[\text{Ookla}_{\text{download}, g} \ge 100]*P[\text{OOkla}_{\text{upload}, g} \ge 20]* (\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_g - \text{B28002\_013}_g)}}{|\textbf{g}|} * 100
+\textbf{p} = \text{Probability}_{g \ge \text{100 Mbps download speed}} *  \text{Probability}_{g \ge \text{20 Mbps upload speed}} * \frac{\text{Total internet-connected population}_g}{\text{Total internet-connected population}_{\textbf{g}}}* 100  =
+
+\prod_{g}\frac{P[\text{Ookla}_{\text{download}, g} \ge 100]*P[\text{OOkla}_{\text{upload}, g} \ge 20](\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_\textbf{g} - \text{B28002\_013}_\textbf{g})} * 100
 ```
 
 ### perc_w_int_25_3_using_devices
+```math
+\textbf{p} = \text{Probability}_{g \ge \text{25 Mbps download speed}} *  \text{Probability}_{g \ge \text{3 Mbps upload speed}} * \frac{\text{Total internet-connected population}_g}{\text{Total internet-connected population}_{\textbf{g}}}* 100  =
+
+\prod_{g}\frac{P[\text{Ookla}_{\text{download}, g} \ge 25]*P[\text{OOkla}_{\text{upload}, g} \ge 3](\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_\textbf{g} - \text{B28002\_013}_\textbf{g})} * 100
+```
+
 
 ## Quickstart
 - `git submodule update --recursive --remote` to download the submodules
