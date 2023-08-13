@@ -65,14 +65,14 @@
     "full_name": "perc_w_int_100_20_using_devices",
     "short_name": "Percent Fast (internet-connected)",
     "long_name": "Percent of the Internet-Connected Population with Fast Internet Speed",
-    "short_description": "ercent of the internet-connected population with a fast internet speed (above 100 Mbps Download and 20 Mbps Upload, able to stream HD video on multiple devices or download large files quickly)",
+    "short_description": "Percent of the internet-connected population with a fast internet speed (above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly).",
     "statement": "{value} of the internet-connected population in {features.name} has a fast internet speed.",
     "type": "percent",
     "equity_category": "Availability",
     "sources": [
       {
         "name": "Ookla",
-        "date_accessed": 2023,
+        "date_accessed": 2021,
         "url": "https://www.ookla.com/ookla-for-good/open-data"
       }
     ],
@@ -103,17 +103,18 @@
   },
   "perc_w_int_25_3_using_devices": {
     "category": "Broadband",
+    "measure_table": "dcmdva_hdcttrbg_2019_2021q3_percent_above_threshold",
     "full_name": "percent_above_threshold:perc_w_int_25_3_using_devices",
     "short_name": "Percent Good (internet-connected)",
     "long_name": "Percent of the Internet-Connected Population with Good Internet Speed",
-    "short_description": "Percent of the internet-connected population with a good internet speed (above 25 Mbps download and 3 Mbps upload, able to stream video or online game for one device).",
+    "short_description": "Percent of the internet-connected population with a good internet speed (above 25/3 MB/s, able to stream video or online game for one device).",
     "statement": "{value} of the internet-connected population in {features.name} has a good internet speed.",
     "type": "percent",
     "equity_category": "Availability",
     "sources": [
       {
         "name": "Ookla",
-        "date_accessed": 2023,
+        "date_accessed": 2021,
         "url": "https://www.ookla.com/ookla-for-good/open-data"
       }
     ],
@@ -149,7 +150,7 @@
     "short_name": "Households with broadband",
     "long_name": "Percentage of households with broadband",
     "short_description": "Percentage of households self-reported to have a broadband internet connection (any type of internet other than a dial-up)",
-    "long_description": "Percentage of households self-reported to have a broadband internet connection. Broadband internet is defined as any type of internet other than a dial-up. Based on American Community Survey Table B28002 in ACS 2021 estimates.",
+    "long_description": "Percentage of households self-reported to have a broadband internet connection. Broadband internet is defined as any type of internet other than a dial-up. Based on American Community Survey Table B28002 in ACS 2015/2019 5-year estimates.",
     "statement": "{value} of households in {features.name} have a broadband connection.",
     "equity_category": "Availability",
     "sources": [
@@ -193,7 +194,7 @@
     "short_name": "Households without a computer",
     "long_name": "Percentage of households without a computer",
     "short_description": "Percentage of households self-reported to not have a computer or device at home",
-    "long_description": "Percentage of the households self-reported to not have a computer or device at home. Based on American Community Survey Table B28002 in ACS 2021 estimates.",
+    "long_description": "Percentage of the households self-reported to not have a computer or device at home. Based on American Community Survey Table B28002 in ACS 2015/2019 5-year estimates.",
     "statement": "{value} of households in {features.name} do not have a computer or device.",
     "equity_category": "Accessibility",
     "sources": [
