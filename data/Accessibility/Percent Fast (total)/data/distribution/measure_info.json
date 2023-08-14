@@ -1,7 +1,6 @@
 {
   "perc_total_100_20_using_devices": {
     "category": "Broadband",
-    "measure_table": "dcmdva_hdcttrbg_2019_2021q3_percent_above_threshold",
     "full_name": "percent_above_threshold:perc_total_100_20_using_devices",
     "short_name": "Percent Fast (total)",
     "long_name": "Percent of the Total Population with Fast Internet Speed",
@@ -12,7 +11,7 @@
     "sources": [
       {
         "name": "Ookla",
-        "date_accessed": 2021,
+        "date_accessed": 2023,
         "url": "https://www.ookla.com/ookla-for-good/open-data"
       }
     ],
