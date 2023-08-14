@@ -1,3 +1,4 @@
+# remotes::install_github("uva-bi-sdad/community")
 library(community)
 
 # get GEOID to entity info map
