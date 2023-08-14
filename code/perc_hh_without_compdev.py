@@ -41,8 +41,8 @@ def perc_hh_without_compdev():
     c_files = [f for f in c_files if f.name in overlapped_filenames]
     d_files = [f for f in d_files if f.name in overlapped_filenames]
 
-    pbar = tqdm(zip(c_files, d_files))
-    for c_f, d_f in pbar:
+    pbar = tqdm(total=len(c_files))
+    for c_f, d_f in zip(c_files, d_files):
         comp_df = pd.read_csv(c_f, dtype={"GEOID21": object})
         # Preparing bbn file; remove all not nulls but also the specific none-standard values
         comp_df = comp_df[
@@ -88,6 +88,7 @@ def perc_hh_without_compdev():
         pbar.set_description("Exporting to: %s" % export_filepath)
         assert not any(fdf["geoid"].isnull())  # Sanity check
         fdf.to_csv(export_filepath, index=False)
+        pbar.update(1)
 
 
 if __name__ == "__main__":
