@@ -95,6 +95,15 @@ end
            avg_d_mbps --> perc_w_int_25_3_using_devices_c;
            perc_w_int_25_3_using_devices_c -- perc_w_int_25_3_using_devices --> perc_w_int_25_3_using_devices_node["<a style='color:#00FF00'>Percent of the internet-connected population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)</a>"];
 
+           B28002_001 --> perc_hh_without_internet_c((" "));
+           B28002_013 --> perc_hh_without_internet_c;
+           perc_hh_without_internet_c --perc_hh_without_internet--> perc_hh_without_internet_node;
+
+           B28002_001 --> perc_hh_with_cable_fiber_dsl_c((" "));
+           B28002_007 --> perc_hh_with_cable_fiber_dsl_c;
+           perc_hh_with_cable_fiber_dsl_c --perc_hh_with_cable_fiber_dsl--> perc_hh_with_cable_fiber_dsl_node;
+
+
 subgraph OUTPUT_G["Outputs"]
            avg_down_using_devices_node;
            avg_up_using_devices_node;
@@ -103,6 +112,9 @@ subgraph OUTPUT_G["Outputs"]
            perc_income_avg_nat_package_node;
            perc_hh_without_compdev_node;
            perc_hh_with_broadband_node;
+           perc_hh_with_cable_fiber_dsl_node["<a style='color:#00FF00'>Percentage of households with a high speed internet service (cable, fiber optic, or DSL)</a>"];
+           perc_hh_without_internet_node["<a style='color:#00FF00'>Percentage of households self-reported to not have internet access at home</a>"];
+           
            perc_income_min_price_25_node;
            perc_w_int_100_20_using_devices_node;
            perc_total_100_20_using_devices_node;
@@ -157,6 +169,22 @@ n = \sum_{g}{\text{Ookla}_{\text{number of devices},g}}
 \textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = \frac{1}{|\textbf{g}|}\sum_{g}{\frac{75*12}{\text{B19013\_001}_g}} * 100
 ```
 
+### perc_hh_without_internet
+```math
+\textbf{p} = \frac{\text{Total no internet access}}{\text{Total presence and types of internet subscription in household}}* 100 =
+
+\frac{\sum_g\text{B28002\_013}_g}
+{\sum_g\text{B28002\_001}_g} * 100
+```
+
+### perc_hh_with_cable_fiber_dsl
+```math
+\textbf{p} = \frac{\text{Total with an internet subscription broadband such as cable, fiber optic, or DSL}}{\text{Total types of computers in household}}* 100 =
+
+\frac{\sum_g\text{B28002\_007}_g}
+{\sum_g\text{B28002\_001}_g} * 100
+```
+
 ### perc_hh_without_compdev
 ```math
 \textbf{p} = \frac{\text{Total types of computers in household} - \text{Has one or more types of computing devices}}{\text{Total types of computers in household}}* 100 =
@@ -186,6 +214,7 @@ n = \sum_{g}{\text{Ookla}_{\text{number of devices},g}}
 
 \sum_{g}\frac{P[\text{Ookla}_{\text{download}, g} \ge 25]*P[\text{OOkla}_{\text{upload}, g} \ge 3](\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_\textbf{g} - \text{B28002\_013}_\textbf{g})} * 100
 ```
+
 
 
 ## Quickstart
