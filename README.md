@@ -85,18 +85,24 @@ end
            speed -.-> perc_income_min_price_25_c;
            down_up -.-> perc_income_min_price_25_c;
            perc_income_min_price_25_c -- perc_income_min_price_25 -->perc_income_min_price_25_node["<a style='color:#00FF00'>The minimum price for good internet (25 MB/s upload)</br> as a percentage of median household income</a>"];
-
-           %% On calculating perc_total_25_3_using_devices
-           %%           with_internet = B28002_001 - B28002_013
-           %%           The probability that 25 Mbps is greater than a randomly drawn value in the known samples, P[X>x], fitted to a normal distribution
-           %%           perc_w_int_above_25_down_using_devices <- pnorm(25, va_merged_data_down_tests$download_tests,va_merged_data_down_tests$sd_county_down_tests, lower.tail = F) * 100
-           %%           perc_w_int_above_25_down_using_devices = sum(pop_w_int_above_25_down_using_devices, na.rm = T) / sum(w_internet, na.rm = T), 
-           %%           perc_total_above_25_down_using_devices = perc_w_int_above_25_down_using_devices * w_internet/B28002_001
-
            B28002_001 --> perc_w_int_100_20_using_devices_c((" "));
            B28002_013 --> perc_w_int_100_20_using_devices_c;
            avg_d_mbps --> perc_w_int_100_20_using_devices_c;
-           perc_w_int_100_20_using_devices_c -- perc_w_int_100_20_using_devices --> perc_w_int_100_20_using_devices_node["Percent of the internet-connected population with a fast internet speed </br> (above 100 Mbps Download and  20 Mbps Upload, able to stream HD video on multiple devices or download large files quickly)"];
+           perc_w_int_100_20_using_devices_c -- perc_w_int_100_20_using_devices --> perc_w_int_100_20_using_devices_node["<a style='color:#00FF00'>Percent of the internet-connected population with a fast internet speed </br> (above 100 Mbps Download and  20 Mbps Upload, able to stream HD video on multiple devices or download large files quickly)</a>"];
+
+           B28002_001 --> perc_w_int_25_3_using_devices_c((" "));
+           B28002_013 --> perc_w_int_25_3_using_devices_c;
+           avg_d_mbps --> perc_w_int_25_3_using_devices_c;
+           perc_w_int_25_3_using_devices_c -- perc_w_int_25_3_using_devices --> perc_w_int_25_3_using_devices_node["<a style='color:#00FF00'>Percent of the internet-connected population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)</a>"];
+
+           B28002_001 --> perc_hh_without_internet_c((" "));
+           B28002_013 --> perc_hh_without_internet_c;
+           perc_hh_without_internet_c --perc_hh_without_internet--> perc_hh_without_internet_node;
+
+           B28002_001 --> perc_hh_with_cable_fiber_dsl_c((" "));
+           B28002_007 --> perc_hh_with_cable_fiber_dsl_c;
+           perc_hh_with_cable_fiber_dsl_c --perc_hh_with_cable_fiber_dsl--> perc_hh_with_cable_fiber_dsl_node;
+
 
 subgraph OUTPUT_G["Outputs"]
            avg_down_using_devices_node;
@@ -106,6 +112,9 @@ subgraph OUTPUT_G["Outputs"]
            perc_income_avg_nat_package_node;
            perc_hh_without_compdev_node;
            perc_hh_with_broadband_node;
+           perc_hh_with_cable_fiber_dsl_node["<a style='color:#00FF00'>Percentage of households with a high speed internet service (cable, fiber optic, or DSL)</a>"];
+           perc_hh_without_internet_node["<a style='color:#00FF00'>Percentage of households self-reported to not have internet access at home</a>"];
+           
            perc_income_min_price_25_node;
            perc_w_int_100_20_using_devices_node;
            perc_total_100_20_using_devices_node;
@@ -120,65 +129,98 @@ end
 
 %% Not yet complete
            TBA -- perc_total_100_20_using_devices --> perc_total_100_20_using_devices_node["Percent of the total population with a fast internet speed </br>(above 100/20 MB/s, able to stream HD video on multiple devices or download large files quickly)"];
-           TBA -- perc_w_int_25_3_using_devices --> perc_w_int_25_3_using_devices_node["Percent of the internet-connected population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
            TBA -- perc_total_25_3_using_devices --> perc_total_25_3_using_devices_node["Percent of the total population with a good internet speed </br> (above 25/3 MB/s, able to stream video or online game for one device)"];
 ```
 
 ## Methods for calculating measures
 
-For the following measures, the geography is represented by $g$, the quarter of the year in $q$. Sometimes, $\text{BBN}$ is an acronym for $\text{Broadbandnow}$.
+For the following measures, geography is represented by $g$.
 
 ### avg_up_using_devices
 ```math
-\textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = \frac{\frac{\sum_{q}\sum_{g}{(\text{Ookla}_{\text{upload},(g, q)}\text{Ookla}_{\text{number of devices},(g, q)})}}{\sum_{q}\sum_{g}{\text{Ookla}_{\text{number of devices},(g, q)}}}}{|\textbf{g}|}
+\textbf{u} = \frac{\text{Total upload speed of all devices}}{\text{Total number of devices}} = {\frac{\sum_{g}\text{Ookla}_{\text{upload},g}*\text{Ookla}_{\text{number of devices},g}}{\sum_g\text{Ookla}_{\text{number of devices},g}}}
 ```
 
 ### devices
 ```math
-\textbf{n} = \sum_{q}\sum_{g}{\text{Ookla}_{\text{number of devices},(g, q)}}
+n = \sum_{g}{\text{Ookla}_{\text{number of devices},g}}
 ```
 
 ### avg_down_using_devices
 ```math
-\textbf{d} = \frac{\text{Total download speed of all devices}}{\text{Total number of devices}} = \frac{\frac{\sum_{q}\sum_{g}{(\text{Ookla}_{\text{download,(g, q)}}\text{Ookla}_{\text{number of devices},(g, q)}})}{\sum_{q}\sum_{g}{\text{Ookla}_{\text{number of devices},(g, q)}}}}{|\textbf{g}|}
+\textbf{d} = \frac{\text{Total download speed of all devices}}{\text{Total number of devices}} =
+{\frac{\sum_{g}\text{Ookla}_{\text{download},g}*\text{Ookla}_{\text{number of devices},g}}{\sum_g\text{Ookla}_{\text{number of devices},g}}}
 ```
 
 ### perc_income_min_price_25
 ```math
-\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{25 Mbps price}}{\text{Total number of geographies}}* 100 = \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 25\text{mbps}, g)})*12}{\text{B19013\_001}_g}}}{|\textbf{g}|}* 100
+\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{25 Mbps price}}{\text{Median household income}}* 100 =
+\frac{1}{|\textbf{g}|}\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 25\text{mbps}, g)})*12}{\text{B19013\_001}_g}} * 100
 ```
 
 ### perc_income_min_price_100
 ```math
-\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{100 Mbps price}}{\text{Total number of geographies}}*100=\\ \frac{\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 100\text{mbps}, g)})*12}{\text{B19013\_001}_g}}}{|\textbf{g}|}*100
+\textbf{p} = \frac{\text{Percentage of income for minimum download speed}\ge\text{100 Mbps price}}{\text{Median household income}}*100=
+\frac{1}{|\textbf{g}|}\sum_{g}{\frac{\min_{\text{price}}(\text{Broadbandnow}_{(\text{download}\ge 100\text{mbps}, g)})*12}{\text{B19013\_001}_g}} * 100
 ```
 
 ### perc_income_avg_nat_package
 ```math
-\textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = 75*12 \frac{|\textbf{g}|}{\sum_g{\text{B19013\_001}_g}}*100
+\textbf{p} = \frac{\text{National average for internet}}{\text{Median household Income}}* 100 = \frac{1}{|\textbf{g}|}\sum_{g}{\frac{75*12}{\text{B19013\_001}_g}} * 100
+```
+
+### perc_hh_without_internet
+```math
+\textbf{p} = \frac{\text{Total no internet access}}{\text{Total presence and types of internet subscription in household}}* 100 =
+
+\frac{\sum_g\text{B28002\_013}_g}
+{\sum_g\text{B28002\_001}_g} * 100
+```
+
+### perc_hh_with_cable_fiber_dsl
+```math
+\textbf{p} = \frac{\text{Total with an internet subscription broadband such as cable, fiber optic, or DSL}}{\text{Total types of computers in household}}* 100 =
+
+\frac{\sum_g\text{B28002\_007}_g}
+{\sum_g\text{B28002\_001}_g} * 100
 ```
 
 ### perc_hh_without_compdev
 ```math
-\textbf{p} = \frac{\text{Total types of computers in household} - \text{Has one or more types of computing devices}}{\text{Total types of computers in household}}* 100 = \frac{\sum_{g}{\frac{(\text{B28001\_001}_g-\text{B28001\_002}_g)}{\text{B28001\_001}_g}}}{|\textbf{g}|}*100
+\textbf{p} = \frac{\text{Total types of computers in household} - \text{Has one or more types of computing devices}}{\text{Total types of computers in household}}* 100 =
+
+\frac{\sum_g(\text{B28001\_001}_g-\text{B28001\_002}_g)}
+{\sum_g\text{B28001\_001}_g} * 100
 ```
 
 ### perc_hh_with_broadband
 ```math
-\textbf{p} = \frac{\text{Total with an internet subscription Broadband of any type}}{\text{Total presence and types of internet subscriptions in household}}* 100 = \frac{\sum_{g}{\frac{\text{B28002\_004}_g}{\text{B28002\_001}_g}}}{|\textbf{g}|}*100
+\textbf{p} = \frac{\text{Total with an internet subscription Broadband of any type}}{\text{Total presence and types of internet subscriptions in household}}* 100 =
+
+\frac{\sum_g\text{B28002\_004}_g}
+{\sum_g\text{B28002\_001}_g} * 100
 ```
 
 ### perc_w_int_100_20_using_devices
 ```math
-\textbf{p} = \frac{\text{Probability that the geography has }\ge \text{100 Mbps download speed and} \ge \text{20 Mbps upload speed}}{\text{Total internet-connected population}}* 100  = \frac{\sum_{g}\frac{P[\text{BBN}_{\text{download}, g} \ge 100]*P[\text{BBN}_{\text{upload}, g} \ge 20]* (\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_g - \text{B28002\_013}_g)}}{|\textbf{g}|} * 100
+\textbf{p} = \text{Probability}_{g \ge \text{100 Mbps download speed}} *  \text{Probability}_{g \ge \text{20 Mbps upload speed}} * \frac{\text{Total internet-connected population}_g}{\text{Total internet-connected population}_{\textbf{g}}}* 100  =
+
+\sum_{g}\frac{P[\text{Ookla}_{\text{download}, g} \ge 100]*P[\text{OOkla}_{\text{upload}, g} \ge 20](\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_\textbf{g} - \text{B28002\_013}_\textbf{g})} * 100
 ```
 
 ### perc_w_int_25_3_using_devices
+```math
+\textbf{p} = \text{Probability}_{g \ge \text{25 Mbps download speed}} *  \text{Probability}_{g \ge \text{3 Mbps upload speed}} * \frac{\text{Total internet-connected population}_g}{\text{Total internet-connected population}_{\textbf{g}}}* 100  =
+
+\sum_{g}\frac{P[\text{Ookla}_{\text{download}, g} \ge 25]*P[\text{OOkla}_{\text{upload}, g} \ge 3](\text{B28002\_001}_g - \text{B28002\_013}_g)}{(\text{B28002\_001}_\textbf{g} - \text{B28002\_013}_\textbf{g})} * 100
+```
+
+
 
 ## Quickstart
 - `git submodule update --recursive --remote` to download the submodules
 - Run `python prepare_broadband_dataset.py` to generate the dataset
-- Run `build.R` to generate the dashboard
+- Run `Rscript build.R` to generate the dashboard
 
 ## Example Data Output
 ```python
