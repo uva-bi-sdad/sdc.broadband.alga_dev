@@ -1,7 +1,6 @@
 {
   "perc_hh_without_internet": {
     "category": "Broadband",
-    "full_name": "broadband_withoutint_compdev:perc_hh_without_internet",
     "type": "percent",
     "short_name": "Households without internet access",
     "long_name": "Percentage of households without internet access",

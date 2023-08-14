@@ -39,8 +39,8 @@ def perc_income_min_price_25():
     bbn_files = [f for f in bbn_files if f.name in overlapped_filenames]
     acs_files = [f for f in acs_files if f.name in overlapped_filenames]
 
-    pbar = tqdm(zip(acs_files, bbn_files))
-    for acs_f, bbn_f in pbar:
+    pbar = tqdm(total=len(acs_files))
+    for acs_f, bbn_f in zip(acs_files, bbn_files):
         bbn_df = pd.read_csv(bbn_f, dtype={"GEOID20": object})
         # Preparing bbn file; remove all not nulls but also the specific none-standard values
         bbn_df = bbn_df[(bbn_df["price"] >= 0) & (bbn_df["price"].notnull())].copy()
@@ -89,6 +89,7 @@ def perc_income_min_price_25():
         pbar.set_description("Exporting to: %s" % export_filepath)
         assert not any(fdf["geoid"].isnull())  # Sanity check
         fdf.to_csv(export_filepath, index=False)
+        pbar.update(1)
 
 
 if __name__ == "__main__":

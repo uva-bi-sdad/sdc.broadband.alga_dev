@@ -31,6 +31,13 @@ perc_income_min_price_100 <- Sys.glob("data/Affordability/Percentage of income f
 perc_income_avg_nat_package <- Sys.glob("data/Affordability/Percentage of income for internet (average)/data/distribution/*.csv.xz")
 perc_hh_without_compdev <- Sys.glob("data/Adoption/Households without a computer/data/distribution/*.csv.xz")
 perc_hh_with_broadband <- Sys.glob("data/Adoption/Households with broadband/data/distribution/*.csv.xz")
+perc_hh_without_internet <- Sys.glob("data/Adoption/Households without internet access/data/distribution/*.csv.xz")
+perc_hh_with_cable_fiber_dsl <- Sys.glob("data/Adoption/Households with cable, fiber optic, or DSL/data/distribution/*.csv.xz")
+perc_w_int_100_20_using_devices <- Sys.glob("data/Accessibility/Percent Fast (internet-connected)/data/distribution/*.csv.xz")
+perc_w_int_25_3_using_devices <- Sys.glob("data/Accessibility/Percent Good (internet-connected)/data/distribution/*.csv.xz")
+perc_total_100_20_using_devices <- Sys.glob("data/Accessibility/Percent Fast (total)/data/distribution/*.csv.xz")
+perc_total_25_3_using_devices <- Sys.glob("data/Accessibility/Percent Good (total)/data/distribution/*.csv.xz")
+
 datasets <- c(
   avg_down_using_devices, 
   avg_up_using_devices, 
@@ -39,7 +46,13 @@ datasets <- c(
   perc_income_min_price_100,
   perc_income_avg_nat_package,
   perc_hh_without_compdev,
-  perc_hh_with_broadband
+  perc_hh_with_broadband,
+  perc_hh_without_internet,
+  perc_hh_with_cable_fiber_dsl,
+  perc_w_int_100_20_using_devices,
+  perc_w_int_25_3_using_devices,
+  perc_total_100_20_using_devices,
+  perc_total_25_3_using_devices
 )
 
 data_reformat_sdad(
