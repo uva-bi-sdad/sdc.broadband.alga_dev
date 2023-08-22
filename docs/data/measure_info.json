@@ -71,7 +71,7 @@
     "sources": [
       {
         "name": "Ookla",
-        "date_accessed": 2021,
+        "date_accessed": 2023,
         "url": "https://www.ookla.com/ookla-for-good/open-data"
       }
     ],
@@ -101,7 +101,6 @@
   },
   "perc_w_int_25_3_using_devices": {
     "category": "Broadband",
-    "measure_table": "dcmdva_hdcttrbg_2019_2021q3_percent_above_threshold",
     "full_name": "percent_above_threshold:perc_w_int_25_3_using_devices",
     "short_name": "Percent Good (internet-connected)",
     "long_name": "Percent of the Internet-Connected Population with Good Internet Speed",
@@ -112,7 +111,7 @@
     "sources": [
       {
         "name": "Ookla",
-        "date_accessed": 2021,
+        "date_accessed": 2023,
         "url": "https://www.ookla.com/ookla-for-good/open-data"
       }
     ],

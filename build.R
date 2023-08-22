@@ -121,5 +121,5 @@ data_add(
   dir = "docs/data"
 )
 
-# site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE, version="local")
-site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE)
+site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE, version="local")
+# site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE)

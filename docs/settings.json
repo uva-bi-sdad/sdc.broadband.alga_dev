@@ -411,7 +411,7 @@
     "bootstrap": {
       "name": "Bootstrap",
       "url": "https://getbootstrap.com",
-      "version": "5.3.0"
+      "version": "5.3.1"
     },
     "colorbrewer": {
       "name": "ColorBrewer",
@@ -446,12 +446,12 @@
     "datatables": {
       "name": "DataTables",
       "url": "https://datatables.net",
-      "version": "1.13.4"
+      "version": "1.13.6"
     },
     "plotly": {
       "name": "Plotly",
       "url": "https://plotly.com/javascript/getting-started",
-      "version": "2.24.2"
+      "version": "2.25.2"
     }
   },
   "aggregated": false,

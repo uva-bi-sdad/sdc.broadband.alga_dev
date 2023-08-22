@@ -1,0 +1,53 @@
+name: Autobuild
+on:
+  push:
+    branches:
+      - 'dashboard'
+  pull-request:
+    branches:
+      - 'dashboard'
+
+jobs:
+  generate-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          
+      - name: Setup renv # Set up R env to install packages
+        run: |
+          install.packages('remotes')
+          remotes::install_github("rstudio/renv")
+        shell: Rscript {0}
+        
+      - name: Check out repository code
+        uses: actions/checkout@main
+      - run: echo "💡 The ${{ github.repository }} repository have been cloned to the runner."
+            
+      - name: Cache packages
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/renv
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-renv-            
+            
+      - name: Restore dependencies
+        run: renv::restore()
+        shell: Rscript {0}
+  
+      - name: List current working directory
+        run: |
+          tree ${{ github.workspace }}
+
+      - name: Build community site 
+        run: source("${{ github.workspace }}/build.R")
+        shell: Rscript {0}
+            
+      - name: Commit files # Commit changes
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add -A
+          git diff-index --quiet HEAD || (git commit -m "auto generate dashboard" && git push)

@@ -241,8 +241,8 @@ n = \sum_{g}{\text{Ookla}_{\text{number of devices},g}}
 
 
 ## Quickstart
-- `git submodule update --recursive --remote` to download the submodules
-- Run `python prepare_broadband_dataset.py` to generate the dataset
+- `git submodule update --recursive --remote` to download the submodules. When you first clone the repo, call `git submodule init`
+- Run `python prepare_broadband_dataset.py` to generate the dataset. 
 - Run `Rscript build.R` to generate the dashboard
 
 ## Example Data Output
