@@ -15,7 +15,8 @@ jobs:
       pages: write
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}    
-      RENV_PATHS_ROOT: ${{ github.repository }}/docs/.renv
+      # RENV_PATHS_ROOT: ${{ github.repository }}/docs/.renv
+      RENV_PATHS_ROOT: ~/.local/share/renv
     steps:
       # Downloading both the repositories to simulate the original task
       - uses: actions/checkout@main
@@ -24,8 +25,7 @@ jobs:
         with:
           path: |
             ${{ env.RENV_PATHS_ROOT }}
-            ${{ github.repository }}/docs
-          key: ${{ runner.os }}-renv-${{ hashFiles('docs/*') }}
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
             ${{ runner.os }}-renv-
       - uses: r-lib/actions/setup-r@v2
