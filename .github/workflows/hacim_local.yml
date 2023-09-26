@@ -41,6 +41,8 @@ jobs:
       - name: List files
         run: |
           ls -la          
+      - name: Checkout
+        uses: actions/checkout@v3          
       - name: build local repository
         working-directory: ${{ github.workspace }}
         shell: Rscript {0}
