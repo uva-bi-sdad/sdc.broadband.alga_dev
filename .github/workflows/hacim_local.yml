@@ -38,6 +38,9 @@ jobs:
           install.packages('remotes')
           remotes::install_github('uva-bi-sdad/community')
           renv::snapshot()
+      - name: List files
+        run: |
+          ls -la          
       - name: build local repository
         working-directory: ${{ github.workspace }}
         shell: Rscript {0}
@@ -46,9 +49,6 @@ jobs:
           renv::restore()	
           source("build.R")
       - uses: actions/checkout@main
-      - name: List files
-        run: |
-          ls -la
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
