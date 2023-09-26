@@ -19,7 +19,6 @@ jobs:
       RENV_PATHS_ROOT: ~/.local/share/renv
     steps:
       # Downloading both the repositories to simulate the original task
-      - uses: actions/checkout@main
       - name: Cache packages
         uses: actions/cache@v3
         with:
@@ -36,23 +35,20 @@ jobs:
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::init()	
-          renv::restore()	
           install.packages('remotes')
           remotes::install_github('uva-bi-sdad/community')
-          source("build.R")
           renv::snapshot()
+      - name: build local repository
+        working-directory: ${{ github.workspace }}
+        shell: Rscript {0}
+        run: |
+          if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
+          renv::restore()	
+          source("build.R")
+      - uses: actions/checkout@main
       - name: List files
         run: |
           ls -la
-      # - name: Commit files # Commit changes
-      #   working-directory: annoying/auto_vdh
-      #   run: |
-      #     ls -la
-      #     git config --local user.email "actions@github.com"
-      #     git config --local user.name "GitHub Actions"
-      #     git add -A
-      #     git commit -m "generating dashboard"
-      #     git push origin main:dashboard -f
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
