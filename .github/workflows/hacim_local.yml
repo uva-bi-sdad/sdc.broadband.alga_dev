@@ -21,7 +21,6 @@ jobs:
       pages: write
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}    
-      # RENV_PATHS_ROOT: ${{ github.repository }}/docs/.renv
       RENV_PATHS_ROOT: ~/.local/share/renv
     steps:
       # Download base repository
@@ -45,6 +44,7 @@ jobs:
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::init()	
+          renv::restore()
           install.packages('remotes')
           remotes::install_github('uva-bi-sdad/community')
           source("build.R")          
