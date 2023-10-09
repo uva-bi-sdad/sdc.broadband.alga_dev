@@ -46,7 +46,7 @@ jobs:
           renv::init()	
           renv::restore()
           install.packages('remotes')
-          remotes::install_github('uva-bi-sdad/community')
+          remotes::install_github('uva-bi-sdad/community@5ac8e38')
           source("build.R")          
           renv::snapshot()
       - name: List files
