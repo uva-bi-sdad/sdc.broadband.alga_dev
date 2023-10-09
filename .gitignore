@@ -210,4 +210,7 @@ po/*~
 rsconnect/
 
 
-
+# Ignore other source files
+sdc.broadband.acs/*
+sdc.broadband.broadbandnow/*
+sdc.broadband.ookla/*
