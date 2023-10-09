@@ -24,6 +24,9 @@ jobs:
       # RENV_PATHS_ROOT: ${{ github.repository }}/docs/.renv
       RENV_PATHS_ROOT: ~/.local/share/renv
     steps:
+      # Download base repository
+      - name: Checkout
+        uses: actions/checkout@v3      
       # Downloading both the repositories to simulate the original task
       - name: Cache packages
         uses: actions/cache@v3
@@ -35,8 +38,7 @@ jobs:
             ${{ runner.os }}-renv-
       - uses: r-lib/actions/setup-r@v2
       - run: echo "💡 The ${{ github.repository }} repository have been cloned to the runner."
-      - name: Checkout
-        uses: actions/checkout@v3        
+  
       - name: build local repository
         working-directory: ${{ github.workspace }}
         shell: Rscript {0}
