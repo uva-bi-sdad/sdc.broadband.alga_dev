@@ -7,6 +7,7 @@
     "short_description": "Percentage of households self-reported to not have internet access at home",
     "long_description": "Percentage of households self-reported to not have internet access at home. Based on American Community Survey Table B28002 in ACS 2021 estimates.",
     "statement": "{value} of households in {features.name} do not have internet access.",
+    "aggregation_method": "",
     "equity_category": "Availability",
     "sources": [
       {

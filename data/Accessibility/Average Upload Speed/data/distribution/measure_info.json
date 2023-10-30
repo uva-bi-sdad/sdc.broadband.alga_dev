@@ -5,6 +5,8 @@
     "short_name": "Average Upload Speed",
     "long_name": "Average Upload Speed",
     "short_description": "Average upload speed in Mbps weighted by number of devices for 2022.",
+    "long_description": "",
+    "aggregation_method": "",
     "statement": "The average upload speed is {value} in {features.name}.",
     "type": "internet speed",
     "equity_category": "Availability",

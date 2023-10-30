@@ -5,6 +5,8 @@
     "short_name": "Average Download Speed",
     "long_name": "Average Download Speed",
     "short_description": "Average download speed in Mbps weighted by number of devices for 2022.",
+    "long_description": "",
+    "aggregation_method": "",
     "statement": "The average download speed is {value} in {features.name}.",
     "type": "internet speed",
     "equity_category": "Availability",

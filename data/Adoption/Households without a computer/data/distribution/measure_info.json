@@ -8,6 +8,7 @@
     "long_name": "Percentage of households without a computer",
     "short_description": "Percentage of households self-reported to not have a computer or device at home",
     "long_description": "Percentage of the households self-reported to not have a computer or device at home. Based on American Community Survey Table B28002 in ACS 2021 estimates.",
+    "aggregation_method": "",
     "statement": "{value} of households in {features.name} do not have a computer or device.",
     "equity_category": "Accessibility",
     "sources": [

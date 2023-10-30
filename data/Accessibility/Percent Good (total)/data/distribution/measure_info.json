@@ -5,6 +5,8 @@
     "short_name": "Percent Good (total)",
     "long_name": "Percent of the Total Population with Good Internet Speed",
     "short_description": "Percent of the total population with a good internet speed (above 25/3 MB/s, able to stream video or online game for one device).",
+    "long_description": "",
+    "aggregation_method": "",
     "statement": "{value} of the total population in {features.name} has a good internet speed.",
     "type": "percent",
     "equity_category": "Availability",

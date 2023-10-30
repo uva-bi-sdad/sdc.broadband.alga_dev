@@ -5,6 +5,8 @@
     "short_name": "Number of devices",
     "long_name": "Number of devices",
     "short_description": "The number of unique devices accessing Ookla Internet speed tests.",
+    "long_description": "",
+    "aggregation_method": "",
     "statement": "There are {value} unique devices in {features.name} accessing Ookla Internet speed tests.",
     "type": "count",
     "equity_category": "Accessibility",
