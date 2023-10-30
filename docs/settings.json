@@ -393,7 +393,11 @@
       },
       "tiles": {
         "light": {
+<<<<<<< HEAD
           "url": "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+=======
+          "url": "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+>>>>>>> d6b721887176dee9a1e6c49290200431ec84ded8
         },
         "dark": {
           "url": "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"

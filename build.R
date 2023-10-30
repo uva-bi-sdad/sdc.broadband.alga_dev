@@ -16,7 +16,7 @@ library(community)
 #   saveRDS(entities, entities_file, compress = "xz")
 # }
 
-entities <- read.csv("docs/data/custom_entity.csv")
+entities <- read.csv("docs/data/custom_entity.csv", colClasses=c("geoid"="character"))
 
 # check data and measure info
 check_repository(dataset = structure(entities$region_type, names = entities$geoid), exclude=c('sdc.broadband.acs', 'sdc.broadband.ookla', 'sdc.broadband.broadbandnow'))
@@ -121,5 +121,6 @@ data_add(
   dir = "docs/data"
 )
 
-# site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE, version="dev")
-site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE)
+
+# site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE)
+site_build("../sdc.broadband.alga_dev", serve = TRUE, open_after = TRUE, aggregate = FALSE, version="dev")
