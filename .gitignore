@@ -200,8 +200,6 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-# pkgdown site
-docs/
 
 # translation temp files
 po/*~
@@ -210,4 +208,7 @@ po/*~
 rsconnect/
 
 
-
+# Ignore other source files
+sdc.broadband.acs/*
+sdc.broadband.broadbandnow/*
+sdc.broadband.ookla/*
